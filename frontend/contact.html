@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact | Cold Cafe</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Remix Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        rel="stylesheet">
+
+    <!-- Contact CSS -->
+    <link rel="stylesheet" href="style/contact.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <div class="logo">
+                <a href="index.html">
+                    <img src="Cold Cafe.png" alt="Cold Cafe">
+                </a>
+            </div>
+
+            <ul class="nav-links">
+
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+
+                <li>
+                    <a href="about.html">About</a>
+                </li>
+
+                <li>
+                    <a href="menu.html">Menu</a>
+                </li>
+
+                <li>
+                    <a href="media.html">Media</a>
+                </li>
+
+            </ul>
+
+            <a href="contact.html" class="btn-nav">
+                Contact
+                <i class="ri-arrow-right-line"></i>
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         CONTACT HERO
+    ========================== -->
+
+    <section class="contact-hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-blob hero-blob-1"></div>
+        <div class="hero-blob hero-blob-2"></div>
+        <div class="hero-content">
+            <span>GET IN TOUCH</span>
+            <h1>Contact Cold Cafe</h1>
+            <p>
+                Visit us, call us, or send us an email.
+                We are always happy to hear from you.
+            </p>
+        </div>
+    </section>
+
+
+    <!-- =========================
+         CONTACT PAGE
+    ========================== -->
+
+    <main class="contact-page">
+
+
+        <!-- =========================
+             CONTACT GRID
+        ========================== -->
+
+        <section class="contact-grid">
+
+
+            <!-- =========================
+                 LEFT SIDE
+            ========================== -->
+
+            <div class="contact-left">
+
+                <div class="section-header">
+                    <span>REACH OUT</span>
+                    <h2>How To Find Us</h2>
+                    <div class="heading-accent"></div>
+                </div>
+
+                <div class="contact-details">
+
+                    <div class="details-card">
+
+                        <div class="details-icon">
+                            <i class="ri-map-pin-line"></i>
+                        </div>
+
+                        <div class="details-content">
+
+                            <h3>Visit Us</h3>
+
+                            <p>
+                                Bhattachowk,<br>
+                                Biratnagar, Nepal
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="details-card">
+
+                        <div class="details-icon">
+                            <i class="ri-phone-line"></i>
+                        </div>
+
+                        <div class="details-content">
+
+                            <h3>Call Us</h3>
+
+                            <a href="tel:+9779800000000">
+                                +977 9800000000
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="details-card">
+
+                        <div class="details-icon">
+                            <i class="ri-mail-line"></i>
+                        </div>
+
+                        <div class="details-content">
+
+                            <h3>Email Us</h3>
+
+                            <a href="mailto:hello@coldcafe.com">
+                                hello@coldcafe.com
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="details-card">
+
+                        <div class="details-icon">
+                            <i class="ri-time-line"></i>
+                        </div>
+
+                        <div class="details-content">
+
+                            <h3>Opening Hours</h3>
+
+                            <p>
+                                Sunday – Friday<br>
+                                8:00 AM – 9:00 PM
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Social Media -->
+
+                <div class="social-section">
+
+                    <h3>Follow Us</h3>
+
+                    <div class="social-icons">
+
+                        <a href="#" aria-label="Facebook">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+
+                        <a href="#" aria-label="Instagram">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+
+                        <a href="#" aria-label="TikTok">
+                            <i class="ri-tiktok-line"></i>
+                        </a>
+
+                        <!-- <a href="#" aria-label="Twitter">
+                            <i class="ri-twitter-x-line"></i>
+                        </a> -->
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 RIGHT SIDE
+            ========================== -->
+
+            <div class="contact-right">
+
+
+                <!-- Contact Form -->
+
+                <div class="contact-form-card">
+
+                    <div class="form-header">
+                        <span>SEND US A MESSAGE</span>
+                        <h2>Let's Talk</h2>
+                        <div class="heading-accent"></div>
+                    </div>
+
+                    <form id="contactForm">
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="name">
+                                    Your Name
+                                </label>
+
+                                <div class="input-wrapper">
+                                    <i class="ri-user-line"></i>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        placeholder="Enter your name"
+                                        required>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="email">
+                                    Your Email
+                                </label>
+
+                                <div class="input-wrapper">
+                                    <i class="ri-mail-line"></i>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        placeholder="Enter your email"
+                                        required>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =========================
+                             PHONE NUMBER
+                        ========================== -->
+
+                        <div class="form-group">
+
+                            <label for="phone">
+                                Phone Number
+                            </label>
+
+                            <div class="input-wrapper">
+                                <i class="ri-phone-line"></i>
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="Enter your phone number"
+                                    required>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="message">
+                                Message
+                            </label>
+
+                            <div class="input-wrapper textarea-wrapper">
+                                <i class="ri-chat-3-line"></i>
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    rows="6"
+                                    placeholder="Write your message..."
+                                    required></textarea>
+                            </div>
+
+                        </div>
+
+
+                        <button type="submit" class="send-btn">
+
+                            Send Message
+
+                            <i class="ri-send-plane-fill"></i>
+
+                        </button>
+
+
+                        <!-- Success Message -->
+
+                        <div id="formMessage" class="form-message"></div>
+
+                    </form>
+
+                </div>
+
+
+                <!-- Map -->
+
+                <div class="map-card">
+
+                    <div class="map-heading">
+
+                        <div>
+                            <span>FIND US</span>
+                            <h2>Our Location</h2>
+                        </div>
+
+                        <i class="ri-map-pin-2-line"></i>
+
+                    </div>
+
+
+                    <div class="map-container">
+
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3653.2077343039828!2d87.28083057177888!3d26.479642487533148!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef75bc6046f563%3A0xf2d37d7a8eaedf59!2sBhatta%20Chowk!5e0!3m2!1sen!2snp!4v1786293552458!5m2!1sen!2snp"
+                            loading="lazy"
+                            allowfullscreen=""
+                            referrerpolicy="strict-origin-when-cross-origin">
+                        </iframe>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+     <!--==========================
+        FOOTER
+===========================-->
+
+    <footer>
+
+        <div class="footer-container">
+
+            <div class="footer-logo">
+
+                <img src="images/cold cafe logo.png" alt="">
+
+                <p>
+
+                    Fresh Coffee • Bubble Tea • Waffles
+
+                </p>
+
+            </div>
+
+
+
+            <div class="footer-links">
+
+                <h3>Quick Links</h3>
+
+                <a href="index.html">Home</a>
+
+                <a href="about.html">About</a>
+
+                <a href="menu.html">Menu</a>
+
+                <a href="media.html">Media</a>
+
+                <a href="contact.html">Contact</a>
+
+            </div>
+
+
+
+            <div class="footer-social">
+
+                <h3>Follow Us</h3>
+
+                <div class="social-icons">
+
+                    <a href="#"><i class="ri-facebook-fill"></i></a>
+
+                    <a href="#"><i class="ri-instagram-line"></i></a>
+
+                    <a href="#"><i class="ri-tiktok-fill"></i></a>
+
+                    <!-- <a href="#"><i class="ri-youtube-fill"></i></a> -->
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p>
+
+                © 2026 Cold Cafe By Giriz | All Rights Reserved.
+
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script src="contact.js"></script>
+
+</body>
+
+</html>

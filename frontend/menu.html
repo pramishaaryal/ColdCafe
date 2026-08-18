@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Cold Cafe By Giriz menu - waffles, bubble tea, cold coffee, milkshakes, ice tea and mojitos."
+    >
+
+    <title>Menu | Cold Cafe By Giriz</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style/menu.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Remix Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+     Existing navbar colors/design preserved
+===================================================== -->
+
+<header>
+
+    <nav class="navbar">
+
+        <a href="index.html" class="logo">
+
+            <img
+                src="Cold Cafe.png"
+                alt="Cold Cafe"
+            >
+
+        </a>
+
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="index.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="about.html">
+                    About
+                </a>
+            </li>
+
+            <li>
+                <a
+                    href="menu.html"
+                    class="active"
+                >
+                    Menu
+                </a>
+            </li>
+
+            <li>
+                <a href="media.html">
+                    Media
+                </a>
+            </li>
+
+        </ul>
+
+
+        <a
+            href="contact.html"
+            class="btn-nav"
+        >
+
+            Contact
+
+            <i class="ri-arrow-right-line"></i>
+
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="menu-hero">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+        <span>
+            PREMIUM MENU
+        </span>
+
+        <h1>
+            Our Signature Menu
+        </h1>
+
+        <p>
+            Fresh flavours, good vibes and something delicious
+            for every mood.
+        </p>
+
+        <a
+            href="#menu"
+            class="hero-btn"
+        >
+
+            Explore Menu
+
+            <i class="ri-arrow-down-line"></i>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section
+    class="menu-intro"
+    id="menu"
+>
+
+    <span class="section-label">
+        COLD CAFE BY GIRIZ
+    </span>
+
+    <h2>
+        Something Delicious<br>
+        For Every Mood
+    </h2>
+
+    <p>
+        From freshly made waffles and creamy cold coffee
+        to colourful bubble tea and refreshing mojitos,
+        there is always something waiting for you.
+    </p>
+
+</section>
+
+
+
+<!-- =====================================================
+     SEARCH + FILTER
+===================================================== -->
+
+<section class="menu-tools-section">
+
+    <div class="menu-tools">
+
+        <div class="search-box">
+
+            <i class="ri-search-line"></i>
+
+            <input
+                type="text"
+                id="menuSearch"
+                placeholder="Search menu..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <div class="category-buttons">
+
+            <button
+                class="category-btn active"
+                data-filter="all"
+                type="button"
+            >
+                All
+            </button>
+
+            <button
+                class="category-btn"
+                data-filter="waffles"
+                type="button"
+            >
+                Waffles
+            </button>
+
+            <button
+                class="category-btn"
+                data-filter="bubble"
+                type="button"
+            >
+                Bubble Tea
+            </button>
+
+            <button
+                class="category-btn"
+                data-filter="coffee"
+                type="button"
+            >
+                Cold Coffee
+            </button>
+
+            <button
+                class="category-btn"
+                data-filter="shakes"
+                type="button"
+            >
+                Milkshakes
+            </button>
+
+            <button
+                class="category-btn"
+                data-filter="refreshers"
+                type="button"
+            >
+                Ice Tea & Mojito
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MENU
+===================================================== -->
+
+<main id="menuSections">
+
+
+    <!-- =================================================
+         BACKEND PRODUCTS
+    ================================================== -->
+
+    <div
+        id="dynamicProducts"
+        aria-live="polite"
+    ></div>
+
+
+
+    <!-- =================================================
+         01. WAFFLE STICKS
+         IMAGE LEFT / CONTENT RIGHT
+    ================================================== -->
+
+    <section
+        class="menu-section"
+        data-category="waffles"
+    >
+
+        <div class="menu-image">
+
+            <img
+                src="https://i.pinimg.com/1200x/fd/27/33/fd27333ff962e59aa39c2a4a9840fc52.jpg"
+                alt="Waffle Stick menu"
+                loading="lazy"
+            >
+
+            <span class="image-badge">
+                Freshly Made
+            </span>
+
+        </div>
+
+
+        <div class="menu-content">
+
+            <!-- <span>
+                OUR SPECIAL
+            </span> -->
+
+            <h2>
+                Waffle Sticks
+            </h2>
+
+            <p class="menu-text">
+                Golden crispy waffle sticks made fresh and
+                finished with delicious sauces and toppings.
+            </p>
+
+
+            <div class="menu-list">
+
+
+                <article
+                    class="menu-item"
+                    data-name="Classic Waffle Sticks"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Classic Waffle Sticks
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 180
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Crispy waffle sticks with classic
+                        chocolate sauce.
+                    </p>
+
+                </article>
+
+
+                <article
+                    class="menu-item"
+                    data-name="Chocolate Waffle Sticks"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Chocolate Waffle Sticks
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 220
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Fresh waffle sticks topped with rich
+                        chocolate and sweet drizzle.
+                    </p>
+
+                </article>
+
+
+                <article
+                    class="menu-item"
+                    data-name="Nutella Waffle Sticks"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Nutella Waffle Sticks
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 250
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Golden waffle sticks served with creamy
+                        Nutella and toppings.
+                    </p>
+
+                </article>
+
+
+                <article
+                    class="menu-item"
+                    data-name="Oreo Waffle Sticks"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Oreo Waffle Sticks
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 250
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Crispy waffle sticks with Oreo crumbs,
+                        chocolate and cream.
+                    </p>
+
+                </article>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         02. BUBBLE TEA
+         CONTENT LEFT / IMAGE RIGHT
+    ================================================== -->
+
+    <section
+        class="menu-section reverse"
+        data-category="bubble"
+    >
+
+        <div class="menu-image">
+
+            <img
+                src="https://i.pinimg.com/736x/fd/2d/b7/fd2db79e9adb3d8146a7c8ff52a554bf.jpg"
+                alt="Bubble Tea menu"
+                loading="lazy"
+            >
+
+            <span class="image-badge">
+                Fan Favourite
+            </span>
+
+        </div>
+
+
+        <div class="menu-content">
+
+            <!-- <span>
+                REFRESH & RELAX
+            </span> -->
+
+            <h2>
+                Bubble Tea
+            </h2>
+
+            <p class="menu-text">
+                Colourful, creamy and refreshing bubble teas
+                made with delicious flavours and chewy pearls.
+            </p>
+
+
+            <div class="menu-list">
+
+
+                <article
+                    class="menu-item"
+                    data-name="Brown Sugar Bubble Tea"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Brown Sugar Bubble Tea
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 280
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Creamy milk tea with brown sugar
+                        and chewy tapioca pearls.
+                    </p>
+
+                </article>
+
+
+                <article
+                    class="menu-item"
+                    data-name="Taro Bubble Tea"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Taro Bubble Tea
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 260
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Smooth and creamy taro milk tea
+                        with chewy pearls.
+                    </p>
+
+                </article>
+
+
+                <article
+                    class="menu-item"
+                    data-name="Strawberry Bubble Tea"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Strawberry Bubble Tea
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 260
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Sweet strawberry milk tea with
+                        refreshing tapioca pearls.
+                    </p>
+
+                </article>
+
+
+                <article
+                    class="menu-item"
+                    data-name="Mango Bubble Tea"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Mango Bubble Tea
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 260
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Fresh mango flavour blended with
+                        creamy milk tea and pearls.
+                    </p>
+
+                </article>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         03. COLD COFFEE
+         IMAGE LEFT / CONTENT RIGHT
+    ================================================== -->
+
+    <section
+        class="menu-section"
+        data-category="coffee"
+    >
+
+        <div class="menu-image">
+
+            <img
+                src="https://i.pinimg.com/736x/55/5e/bb/555ebb52070c9043eaf2611008e76e2e.jpg"
+                alt="Cold Coffee menu"
+                loading="lazy"
+            >
+
+            <span class="image-badge">
+                Cafe Favourite
+            </span>
+
+        </div>
+
+
+        <div class="menu-content">
+
+            <!-- <span>
+                COFFEE LOVERS
+            </span> -->
+
+            <h2>
+                Cold Coffee
+            </h2>
+
+            <p class="menu-text">
+                Smooth, chilled coffee crafted for those
+                who love their caffeine cold.
+            </p>
+
+
+            <div class="menu-list">
+
+
+                <article
+                    class="menu-item"
+                    data-name="Classic Cold Coffee"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Classic Cold Coffee
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 220
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Smooth chilled coffee blended with
+                        creamy milk.
+                    </p>
+
+                </article>
+
+
+                <article
+                    class="menu-item"
+                    data-name="Iced Caramel Latte"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Iced Caramel Latte
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 250
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Chilled espresso, creamy milk and
+                        sweet caramel.
+                    </p>
+
+                </article>
+
+
+                <article
+                    class="menu-item"
+                    data-name="Mocha Frappe"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Mocha Frappe
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 280
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Chocolate and coffee blended into
+                        a smooth chilled frappe.
+                    </p>
+
+                </article>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         04. MILKSHAKES
+         CONTENT LEFT / IMAGE RIGHT
+    ================================================== -->
+
+    <section
+        class="menu-section reverse"
+        data-category="shakes"
+    >
+
+        <div class="menu-image">
+
+            <img
+                src="https://i.pinimg.com/736x/de/cb/21/decb215d1078fa6485e9e44e0f52a2de.jpg"
+                alt="Milkshake menu"
+                loading="lazy"
+            >
+
+            <span class="image-badge">
+                Creamy
+            </span>
+
+        </div>
+
+
+        <div class="menu-content">
+
+            <!-- <span>
+                THICK & CREAMY
+            </span> -->
+
+            <h2>
+                Milkshakes
+            </h2>
+
+            <p class="menu-text">
+                Thick, creamy and loaded with flavour.
+                Perfect for every sweet craving.
+            </p>
+
+
+            <div class="menu-list">
+
+
+                <article
+                    class="menu-item"
+                    data-name="Chocolate Milkshake"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Chocolate Milkshake
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 250
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Rich chocolate milkshake topped
+                        with chocolate drizzle.
+                    </p>
+
+                </article>
+
+
+                <article
+                    class="menu-item"
+                    data-name="Strawberry Milkshake"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Strawberry Milkshake
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 250
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Creamy strawberry shake made with
+                        fresh fruity flavour.
+                    </p>
+
+                </article>
+
+
+                <article
+                    class="menu-item"
+                    data-name="Oreo Milkshake"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Oreo Milkshake
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 280
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Creamy milkshake blended with
+                        crunchy Oreo cookies.
+                    </p>
+
+                </article>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         05. ICE TEA + MOJITO
+         IMAGE LEFT / CONTENT RIGHT
+    ================================================== -->
+
+    <!-- <section
+        class="menu-section"
+        data-category="refreshers"
+    >
+
+        <div class="menu-image">
+
+            <img
+                src="https://i.pinimg.com/1200x/eb/9f/35/eb9f3539e2631d4140af212477a99277.jpg"
+                alt="Ice Tea and Mojito"
+                loading="lazy"
+            >
+
+            <span class="image-badge">
+                Refreshing
+            </span>
+
+        </div>
+
+
+        <div class="menu-content">
+
+            <span>
+                STAY REFRESHED
+            </span>
+
+            <h2>
+                Ice Tea & Mojito
+            </h2>
+
+            <p class="menu-text">
+                Bright, fruity and refreshing drinks
+                perfect for hot days.
+            </p>
+
+
+            <div class="menu-list">
+
+
+                <article
+                    class="menu-item"
+                    data-name="Peach Ice Tea"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Peach Ice Tea
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 180
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Chilled black tea with sweet
+                        peach flavour.
+                    </p>
+
+                </article>
+
+
+                <article
+                    class="menu-item"
+                    data-name="Lemon Ice Tea"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Lemon Ice Tea
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 170
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Refreshing iced tea with lemon
+                        and a hint of sweetness.
+                    </p>
+
+                </article>
+
+
+                <article
+                    class="menu-item"
+                    data-name="Classic Mojito"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Classic Mojito
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 200
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Fresh mint, lime and soda
+                        served chilled.
+                    </p>
+
+                </article>
+
+
+                <article
+                    class="menu-item"
+                    data-name="Blue Lagoon Mojito"
+                >
+
+                    <div class="item-name">
+
+                        <h3>
+                            Blue Lagoon Mojito
+                        </h3>
+
+                        <span class="line"></span>
+
+                        <h4>
+                            NPR 220
+                        </h4>
+
+                    </div>
+
+                    <p>
+                        Sweet blue citrus flavour with
+                        mint, lime and soda.
+                    </p>
+
+                </article>
+
+
+            </div>
+
+        </div>
+
+    </section> -->
+
+
+
+    <!-- =================================================
+         NO RESULTS
+    ================================================== -->
+
+    <div
+        id="noResults"
+        class="no-results"
+    >
+
+        <i class="ri-search-line"></i>
+
+        <h3>
+            No items found
+        </h3>
+
+        <p>
+            Try another search or category.
+        </p>
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="menu-cta">
+
+    <div class="cta-content">
+
+        <span>
+            COME VISIT US
+        </span>
+
+        <h2>
+            Good Food.<br>
+            Good Mood.
+        </h2>
+
+        <p>
+            Visit Cold Cafe By Giriz and enjoy your
+            favourite drinks, waffles and desserts.
+        </p>
+
+        <a
+            href="contact.html"
+            class="cta-btn"
+        >
+
+            Contact Us
+
+            <i class="ri-arrow-right-line"></i>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!--==========================
+        FOOTER
+===========================-->
+
+<footer>
+
+    <div class="footer-container">
+
+        <div class="footer-logo">
+
+            <img src="images/cold cafe logo.png" alt="">
+
+            <p>
+
+                Fresh Coffee • Bubble Tea • Waffles
+
+            </p>
+
+        </div>
+
+
+
+        <div class="footer-links">
+
+            <h3>Quick Links</h3>
+
+            <a href="index.html">Home</a>
+
+            <a href="about.html">About</a>
+
+            <a href="menu.html">Menu</a>
+
+            <a href="media.html">Media</a>
+
+            <a href="contact.html">Contact</a>
+
+        </div>
+
+
+
+        <div class="footer-social">
+
+            <h3>Follow Us</h3>
+
+            <div class="social-icons">
+
+                <a href="#"><i class="ri-facebook-fill"></i></a>
+
+                <a href="#"><i class="ri-instagram-line"></i></a>
+
+                <a href="#"><i class="ri-tiktok-fill"></i></a>
+
+                <!-- <a href="#"><i class="ri-youtube-fill"></i></a> -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <p>
+
+            © 2026 Cold Cafe By Giriz | All Rights Reserved.
+
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+
+<!-- JS -->
+
+<script src="menu.js"></script>
+
+</body>
+
+</html>
