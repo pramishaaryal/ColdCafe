@@ -55,6 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let menuRefreshInProgress = false;
 
+    let menuRenderInProgress = false;
+
 
     /* =====================================================
        ESCAPE HTML
@@ -1055,6 +1057,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /*
+           Remove ALL backend-product items that were
+           previously added, including those appended
+           to static sections' menu-list.
+        */
+
+        document
+            .querySelectorAll(
+                "#menuSections .backend-product"
+            )
+            .forEach(
+                function (item) {
+
+                    item.remove();
+                }
+            );
+
+
+        /*
            Remove dynamically-created category sections
            from previous refresh.
         */
@@ -1090,6 +1110,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
             return;
         }
+
+
+        if (menuRenderInProgress) {
+
+            return;
+        }
+
+
+        menuRenderInProgress =
+            true;
 
 
         clearDynamicProducts();
@@ -1331,6 +1361,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         setupImageFallback();
+
+
+        menuRenderInProgress =
+            false;
     }
 
 
@@ -2199,6 +2233,24 @@ document.addEventListener("DOMContentLoaded", function () {
     window.refreshMenuFromBackend =
         async function () {
 
+            if (
+                menuRefreshInProgress
+            ) {
+
+                return {
+
+                    success: false,
+
+                    error:
+                        "Refresh already in progress"
+                };
+            }
+
+
+            menuRefreshInProgress =
+                true;
+
+
             try {
 
                 await Promise.all([
@@ -2245,6 +2297,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     error: error
                 };
+
+
+            } finally {
+
+                menuRefreshInProgress =
+                    false;
             }
         };
 
@@ -2350,6 +2408,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 if (
+                    !menuRefreshInProgress &&
                     typeof window.refreshMenuFromBackend ===
                     "function"
                 ) {
