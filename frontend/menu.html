@@ -59,46 +59,98 @@
 
 <body>
 
- <!-- ================= NAVBAR ================= -->
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
 
     <header>
 
         <nav class="navbar">
+
+
             <!-- LOGO -->
-            <a href="index.html" class="logo">
-                <img src="Cold Cafe.png" alt="Cold Cafe">
+
+            <a
+                href="index.html"
+                class="logo"
+            >
+
+                <img
+                    src="Cold Cafe.png"
+                    alt="Cold Cafe"
+                >
+
             </a>
 
 
+
             <!-- NAV LINKS -->
-            <ul class="nav-links">
+
+            <ul class="nav-links" id="navLinks">
+
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="index.html">
+                        Home
+                    </a>
                 </li>
+
+
                 <li>
-                    <a href="about.html">About</a>
+                    <a href="about.html">
+                        About
+                    </a>
                 </li>
+
+
                 <li>
-                    <a href="menu.html">Menu</a>
+                    <a
+                        href="menu.html"
+                        class="active"
+                    >
+                        Menu
+                    </a>
                 </li>
+
+
                 <li>
-                    <a href="media.html">Media</a>
+                    <a href="media.html">
+                        Media
+                    </a>
                 </li>
-                <!-- <li>
-                    <a href="contact.html">Contact</a>
-                </li> -->
 
             </ul>
 
 
-            <!-- RESERVATION -->
-            <a href="contact.html" class="btn-nav">
+
+            <!-- CONTACT BUTTON -->
+
+            <a
+                href="contact.html"
+                class="btn-nav"
+            >
 
                 Contact
 
                 <i class="ri-arrow-right-line"></i>
 
             </a>
+
+
+
+            <!-- MOBILE MENU BUTTON -->
+
+            <button
+                type="button"
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Open menu"
+                aria-expanded="false"
+            >
+
+                <i class="ri-menu-3-line"></i>
+
+            </button>
 
         </nav>
 
@@ -216,66 +268,16 @@
             >
 
                 <!--
-
-                    JavaScript will generate
-                    category buttons from backend.
-
-                    Default buttons are kept here as
-                    fallback before JavaScript loads.
-
+                    Categories will be loaded
+                    from backend automatically.
                 -->
 
                 <button
+                    type="button"
                     class="category-btn active"
                     data-filter="all"
-                    type="button"
                 >
                     All
-                </button>
-
-
-                <button
-                    class="category-btn"
-                    data-filter="waffles"
-                    type="button"
-                >
-                    Waffles
-                </button>
-
-
-                <button
-                    class="category-btn"
-                    data-filter="bubble"
-                    type="button"
-                >
-                    Bubble Tea
-                </button>
-
-
-                <button
-                    class="category-btn"
-                    data-filter="coffee"
-                    type="button"
-                >
-                    Cold Coffee
-                </button>
-
-
-                <button
-                    class="category-btn"
-                    data-filter="shakes"
-                    type="button"
-                >
-                    Milkshakes
-                </button>
-
-
-                <button
-                    class="category-btn"
-                    data-filter="refreshers"
-                    type="button"
-                >
-                    Ice Tea & Mojito
                 </button>
 
             </div>
@@ -287,1668 +289,51 @@
 
 
     <!-- =====================================================
-         MENU SECTIONS
+         MENU CONTENT
 
          IMPORTANT:
 
-         These sections are the original visual design.
+         Products and categories are NOT hard-coded here.
 
-         Backend products are synchronized with these
-         existing items by menu.js.
+         menu.js gets them from:
 
-         New products are added automatically.
+         /api/products
+         /api/categories
     ====================================================== -->
 
     <main id="menuSections">
 
-
-        <!-- =================================================
-             WAFFLE STICKS
-        ================================================== -->
-
-        <section
-            class="menu-section"
-            data-category="waffles"
-        >
-
-
-            <!-- IMAGE -->
-
-            <div class="menu-image">
-
-                <img
-                    src="https://i.pinimg.com/1200x/fd/27/33/fd27333ff962e59aa39c2a4a9840fc52.jpg"
-                    alt="Waffle Stick menu"
-                    loading="lazy"
-                >
-
-
-                <span class="image-badge">
-                    Freshly Made
-                </span>
-
-            </div>
-
-
-
-            <!-- CONTENT -->
-
-            <div class="menu-content">
-
-                <span>
-                    OUR SPECIAL
-                </span>
-
-
-                <h2>
-                    Waffle Sticks
-                </h2>
-
-
-                <p class="menu-text">
-                    Golden crispy waffle sticks made fresh and
-                    finished with delicious sauces and toppings.
-                </p>
-
-
-
-                <!-- PRODUCTS -->
-
-                <div class="menu-list">
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Waffle Stick"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Waffle Stick
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 149
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Crispy outside, soft inside and freshly made.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Chocolate Waffle Stick"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Chocolate Waffle Stick
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 149
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Fresh waffle stick finished with chocolate drizzle.
-                        </p>
-
-                    </article>
-
-                </div>
-
-
-
-                <!-- EXTRAS -->
-
-                <div class="extras-grid">
-
-
-                    <!-- SAUCES -->
-
-                    <div class="extras-card">
-
-                        <h4>
-
-                            <i class="ri-drop-line"></i>
-
-                            Sauces & Drizzles
-
-                        </h4>
-
-
-                        <ul>
-
-                            <li>
-
-                                <span>
-                                    Pistachio Sauce
-                                </span>
-
-                                <b>
-                                    NPR 69
-                                </b>
-
-                            </li>
-
-
-                            <li>
-
-                                <span>
-                                    Nutella Sauce
-                                </span>
-
-                                <b>
-                                    NPR 69
-                                </b>
-
-                            </li>
-
-
-                            <li>
-
-                                <span>
-                                    White Chocolate Sauce
-                                </span>
-
-                                <b>
-                                    NPR 69
-                                </b>
-
-                            </li>
-
-
-                            <li>
-
-                                <span>
-                                    Chocolate Sauce
-                                </span>
-
-                                <b>
-                                    NPR 49
-                                </b>
-
-                            </li>
-
-
-                            <li>
-
-                                <span>
-                                    Strawberry Sauce
-                                </span>
-
-                                <b>
-                                    NPR 49
-                                </b>
-
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-
-
-                    <!-- TOPPINGS -->
-
-                    <div class="extras-card">
-
-                        <h4>
-
-                            <i class="ri-cake-3-line"></i>
-
-                            Toppings
-
-                        </h4>
-
-
-                        <ul>
-
-                            <li>
-
-                                <span>
-                                    Banana
-                                </span>
-
-                                <b>
-                                    NPR 39
-                                </b>
-
-                            </li>
-
-
-                            <li>
-
-                                <span>
-                                    Pineapple
-                                </span>
-
-                                <b>
-                                    NPR 39
-                                </b>
-
-                            </li>
-
-
-                            <li>
-
-                                <span>
-                                    Chocolate Chips
-                                </span>
-
-                                <b>
-                                    NPR 39
-                                </b>
-
-                            </li>
-
-
-                            <li>
-
-                                <span>
-                                    Oreo
-                                </span>
-
-                                <b>
-                                    NPR 59
-                                </b>
-
-                            </li>
-
-
-                            <li>
-
-                                <span>
-                                    KitKat
-                                </span>
-
-                                <b>
-                                    NPR 59
-                                </b>
-
-                            </li>
-
-
-                            <li>
-
-                                <span>
-                                    Marshmallow
-                                </span>
-
-                                <b>
-                                    NPR 59
-                                </b>
-
-                            </li>
-
-
-                            <li>
-
-                                <span>
-                                    Vanilla Ice Cream
-                                </span>
-
-                                <b>
-                                    NPR 59
-                                </b>
-
-                            </li>
-
-
-                            <li>
-
-                                <span>
-                                    Chocolate Ice Cream
-                                </span>
-
-                                <b>
-                                    NPR 59
-                                </b>
-
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =================================================
-             ROUND WAFFLES
-        ================================================== -->
-
-        <section
-            class="menu-section reverse"
-            data-category="waffles"
-        >
-
-
-            <!-- CONTENT -->
-
-            <div class="menu-content">
-
-                <span>
-                    FRESHLY MADE
-                </span>
-
-
-                <h2>
-                    Round Waffles
-                </h2>
-
-
-                <p class="menu-text">
-                    Light, fluffy and freshly prepared waffles
-                    made for every sweet craving.
-                </p>
-
-
-                <div class="menu-list">
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Classic Vanilla Waffle"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Classic Vanilla Waffle
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 229
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Light fluffy waffle with creamy butter
-                            and rich maple syrup.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Classic Chocolate Waffle"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Classic Chocolate Waffle
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 229
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Soft chocolate waffle with smooth
-                            chocolate drizzle.
-                        </p>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- IMAGE -->
-
-            <div class="menu-image">
-
-                <img
-                    src="https://i.pinimg.com/1200x/f4/88/fa/f488fa3048a4597dbde4cc6badded47c.jpg"
-                    alt="Round Waffle menu"
-                    loading="lazy"
-                >
-
-
-                <span class="image-badge">
-                    NPR 229
-                </span>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =================================================
-             COLD COFFEE
-        ================================================== -->
-
-        <section
-            class="menu-section cream-section"
-            data-category="coffee"
-        >
-
-
-            <!-- IMAGE -->
-
-            <div class="menu-image">
-
-                <img
-                    src="https://i.pinimg.com/736x/55/5e/bb/555ebb52070c9043eaf2611008e76e2e.jpg"
-                    alt="Cold Coffee menu"
-                    loading="lazy"
-                >
-
-
-                <span class="image-badge">
-                    Cold & Creamy
-                </span>
-
-            </div>
-
-
-
-            <!-- CONTENT -->
-
-            <div class="menu-content">
-
-                <span>
-                    ICE COLD
-                </span>
-
-
-                <h2>
-                    Cold Coffee
-                </h2>
-
-
-                <p class="menu-text">
-                    Smooth espresso, chilled milk and delicious
-                    flavours crafted into refreshing coffee favourites.
-                </p>
-
-
-                <div class="menu-list compact-list">
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Ice Americano"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Ice Americano
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 100
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Bold, smooth and refreshing.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Ice Latte"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Ice Latte
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 150
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Smooth espresso with chilled milk.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Ice Spanish Latte"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Ice Spanish Latte
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 180
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Espresso with sweet condensed milk.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Ice Caramel Latte"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Ice Caramel Latte
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 180
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Smooth latte with rich caramel flavour.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Ice Vanilla Latte"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Ice Vanilla Latte
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 180
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Creamy latte infused with vanilla.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Ice Mocha"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Ice Mocha
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 180
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Espresso with chocolate and chilled milk.
-                        </p>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =================================================
-             BUBBLE TEA
-        ================================================== -->
-
-        <section
-            class="menu-section reverse"
-            data-category="bubble"
-        >
-
-
-            <!-- CONTENT -->
-
-            <div class="menu-content">
-
-                <span>
-                    FRESH & SWEET
-                </span>
-
-
-                <h2>
-                    Bubble Tea
-                </h2>
-
-
-                <p class="menu-text">
-                    Refresh yourself with colourful and creamy
-                    bubble tea served with soft chewy pearls.
-                </p>
-
-
-                <div class="menu-list compact-list">
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Strawberry Bubble Tea"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Strawberry
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 199
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Sweet and fruity with a berry twist.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Blueberry Bubble Tea"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Blueberry
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 199
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Bright, juicy and refreshing.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Matcha Bubble Tea"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Matcha
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 199
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Earthy, smooth and creamy.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Vanilla Bubble Tea"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Vanilla
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 199
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Creamy, classic and delicious.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Chocolate Bubble Tea"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Chocolate
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 199
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Rich, indulgent and chocolatey.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Mango Bubble Tea"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Mango
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 199
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Tropical and bursting with flavour.
-                        </p>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- IMAGE -->
-
-            <div class="menu-image">
-
-                <img
-                    src="https://i.pinimg.com/1200x/00/16/09/0016093cdf9023051eebd26d1f8b93b7.jpg"
-                    alt="Bubble Tea menu"
-                    loading="lazy"
-                >
-
-
-                <span class="image-badge">
-                    All NPR 199
-                </span>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =================================================
-             MILKSHAKES
-        ================================================== -->
-
-        <section
-            class="menu-section cream-section"
-            data-category="shakes"
-        >
-
-
-            <!-- IMAGE -->
-
-            <div class="menu-image">
-
-                <img
-                    src="https://i.pinimg.com/736x/03/ad/d5/03add5dd1102a1f2d30644340a1769ac.jpg"
-                    alt="Milkshake menu"
-                    loading="lazy"
-                >
-
-
-                <span class="image-badge">
-                    Creamy & Cold
-                </span>
-
-            </div>
-
-
-
-            <!-- CONTENT -->
-
-            <div class="menu-content">
-
-                <span>
-                    THICK & CREAMY
-                </span>
-
-
-                <h2>
-                    Milkshakes
-                </h2>
-
-
-                <p class="menu-text">
-                    Creamy shakes packed with flavour,
-                    perfect for every sweet craving.
-                </p>
-
-
-                <div class="menu-list compact-list">
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Oreo Shake"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Oreo Shake
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 199
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Classic Oreo blended into a creamy shake.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="KitKat Shake"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                KitKat Shake
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 199
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Chocolatey KitKat goodness in every sip.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Vanilla Shake"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Vanilla Shake
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 179
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Silky vanilla with a smooth finish.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Chocolate Shake"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Chocolate Shake
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 179
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Rich chocolate flavour.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Strawberry Shake"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Strawberry Shake
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 199
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Fresh strawberry flavour with creamy milk.
-                        </p>
-
-                    </article>
-
-
-
-                    <article
-                        class="menu-item"
-                        data-name="Banana Shake"
-                    >
-
-                        <div class="item-name">
-
-                            <h3>
-                                Banana Shake
-                            </h3>
-
-                            <span class="line"></span>
-
-                            <h4>
-                                NPR 199
-                            </h4>
-
-                        </div>
-
-
-                        <p>
-                            Sweet banana blended into a creamy classic.
-                        </p>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =================================================
-             ICE TEA & MOJITO
-        ================================================== -->
-
-        <section
-            class="menu-section reverse refreshers-section"
-            data-category="refreshers"
-        >
-
-
-            <!-- IMAGE -->
-
-            <div class="menu-image refresher-image">
-
-                <img
-                    src="https://i.pinimg.com/736x/0b/ca/08/0bca08a216d6ee59631f358a4121df60.jpg"
-                    alt="Ice Tea and Mojito menu"
-                    loading="lazy"
-                >
-
-
-                <span class="image-badge">
-                    Fresh & Refreshing
-                </span>
-
-            </div>
-
-
-
-            <!-- CONTENT -->
-
-            <div class="menu-content">
-
-                <span>
-                    COOL • FRUITY • REFRESHING
-                </span>
-
-
-                <h2>
-                    Ice Tea & Mojito
-                </h2>
-
-
-                <p class="menu-text">
-                    Bright, fruity and refreshing drinks made for
-                    sunny days and good vibes.
-                </p>
-
-
-
-                <!-- ==============================
-                     ICE TEA
-                =============================== -->
-
-                <div class="drink-subsection">
-
-                    <div class="subsection-title">
-
-                        <h3>
-                            Ice Tea
-                        </h3>
-
-                        <span>
-                            NPR 159 each
-                        </span>
-
-                    </div>
-
-
-                    <div class="menu-list compact-list">
-
-
-                        <article
-                            class="menu-item"
-                            data-name="Peach Ice Tea"
-                        >
-
-                            <div class="item-name">
-
-                                <h3>
-                                    Peach Ice Tea
-                                </h3>
-
-                                <span class="line"></span>
-
-                                <h4>
-                                    NPR 159
-                                </h4>
-
-                            </div>
-
-
-                            <p>
-                                Refreshing peach iced tea with a sweet,
-                                fruity finish.
-                            </p>
-
-                        </article>
-
-
-
-                        <article
-                            class="menu-item"
-                            data-name="Lemon Ice Tea"
-                        >
-
-                            <div class="item-name">
-
-                                <h3>
-                                    Lemon Ice Tea
-                                </h3>
-
-                                <span class="line"></span>
-
-                                <h4>
-                                    NPR 159
-                                </h4>
-
-                            </div>
-
-
-                            <p>
-                                Bright lemon iced tea with a crisp,
-                                refreshing taste.
-                            </p>
-
-                        </article>
-
-
-
-                        <article
-                            class="menu-item"
-                            data-name="Apple Ice Tea"
-                        >
-
-                            <div class="item-name">
-
-                                <h3>
-                                    Apple Ice Tea
-                                </h3>
-
-                                <span class="line"></span>
-
-                                <h4>
-                                    NPR 159
-                                </h4>
-
-                            </div>
-
-
-                            <p>
-                                Fresh apple iced tea with a light,
-                                fruity flavour.
-                            </p>
-
-                        </article>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- ==============================
-                     MOJITO
-                =============================== -->
-
-                <div class="drink-subsection">
-
-                    <div class="subsection-title">
-
-                        <h3>
-                            Mojito
-                        </h3>
-
-                        <span>
-                            NPR 159 each
-                        </span>
-
-                    </div>
-
-
-                    <div class="menu-list compact-list">
-
-
-                        <article
-                            class="menu-item"
-                            data-name="Classic Mint Mojito"
-                        >
-
-                            <div class="item-name">
-
-                                <h3>
-                                    Classic Mint
-                                </h3>
-
-                                <span class="line"></span>
-
-                                <h4>
-                                    NPR 159
-                                </h4>
-
-                            </div>
-
-
-                            <p>
-                                Cool mint mojito with a crisp,
-                                refreshing finish.
-                            </p>
-
-                        </article>
-
-
-
-                        <article
-                            class="menu-item"
-                            data-name="Blue Lagoon Mojito"
-                        >
-
-                            <div class="item-name">
-
-                                <h3>
-                                    Blue Lagoon
-                                </h3>
-
-                                <span class="line"></span>
-
-                                <h4>
-                                    NPR 159
-                                </h4>
-
-                            </div>
-
-
-                            <p>
-                                Refreshing blue lagoon mojito with a
-                                bright citrus taste.
-                            </p>
-
-                        </article>
-
-
-
-                        <article
-                            class="menu-item"
-                            data-name="Mango Mojito"
-                        >
-
-                            <div class="item-name">
-
-                                <h3>
-                                    Mango
-                                </h3>
-
-                                <span class="line"></span>
-
-                                <h4>
-                                    NPR 159
-                                </h4>
-
-                            </div>
-
-
-                            <p>
-                                Tropical mango mojito with a sweet,
-                                refreshing finish.
-                            </p>
-
-                        </article>
-
-
-
-                        <article
-                            class="menu-item"
-                            data-name="Strawberry Mojito"
-                        >
-
-                            <div class="item-name">
-
-                                <h3>
-                                    Strawberry
-                                </h3>
-
-                                <span class="line"></span>
-
-                                <h4>
-                                    NPR 159
-                                </h4>
-
-                            </div>
-
-
-                            <p>
-                                Sweet strawberry mojito with a fresh
-                                fruity taste.
-                            </p>
-
-                        </article>
-
-
-
-                        <article
-                            class="menu-item"
-                            data-name="Watermelon Mojito"
-                        >
-
-                            <div class="item-name">
-
-                                <h3>
-                                    Watermelon
-                                </h3>
-
-                                <span class="line"></span>
-
-                                <h4>
-                                    NPR 159
-                                </h4>
-
-                            </div>
-
-
-                            <p>
-                                Juicy watermelon mojito with a refreshing
-                                summer flavour.
-                            </p>
-
-                        </article>
-
-
-
-                        <article
-                            class="menu-item"
-                            data-name="Green Apple Mojito"
-                        >
-
-                            <div class="item-name">
-
-                                <h3>
-                                    Green Apple
-                                </h3>
-
-                                <span class="line"></span>
-
-                                <h4>
-                                    NPR 159
-                                </h4>
-
-                            </div>
-
-
-                            <p>
-                                Crisp green apple mojito with a bright,
-                                tangy finish.
-                            </p>
-
-                        </article>
-
-
-
-                        <article
-                            class="menu-item"
-                            data-name="Kiwi Mojito"
-                        >
-
-                            <div class="item-name">
-
-                                <h3>
-                                    Kiwi
-                                </h3>
-
-                                <span class="line"></span>
-
-                                <h4>
-                                    NPR 159
-                                </h4>
-
-                            </div>
-
-
-                            <p>
-                                Fresh kiwi mojito with a fruity and
-                                refreshing taste.
-                            </p>
-
-                        </article>
-
-
-
-                        <article
-                            class="menu-item"
-                            data-name="Pineapple Mojito"
-                        >
-
-                            <div class="item-name">
-
-                                <h3>
-                                    Pineapple
-                                </h3>
-
-                                <span class="line"></span>
-
-                                <h4>
-                                    NPR 159
-                                </h4>
-
-                            </div>
-
-
-                            <p>
-                                Tropical pineapple mojito with a juicy,
-                                refreshing finish.
-                            </p>
-
-                        </article>
-
-
-
-                        <article
-                            class="menu-item"
-                            data-name="Orange Mojito"
-                        >
-
-                            <div class="item-name">
-
-                                <h3>
-                                    Orange
-                                </h3>
-
-                                <span class="line"></span>
-
-                                <h4>
-                                    NPR 159
-                                </h4>
-
-                            </div>
-
-
-                            <p>
-                                Zesty orange mojito with a bright
-                                citrus flavour.
-                            </p>
-
-                        </article>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =================================================
-             NO RESULTS
-        ================================================== -->
-
-        <div
-            class="no-results"
-            id="noResults"
-        >
-
-            <i class="ri-search-eye-line"></i>
-
-
-            <h3>
-                No menu item found
-            </h3>
-
-
-            <p>
-                Try searching another item or choose another category.
-            </p>
-
-        </div>
-
-
-
-        <!-- =================================================
-             SPECIAL CTA
-        ================================================== -->
-
-        <section class="special">
-
-            <div class="special-overlay">
-
-                <span>
-                    OUR FAVOURITE
-                </span>
-
-
-                <h2>
-                    Made Fresh. Served Happy.
-                </h2>
-
-
-                <p>
-                    Drop by Cold Cafe By Giriz for waffles,
-                    bubble tea, cold coffee and refreshing drinks
-                    made just for you.
-                </p>
-
-
-                <a
-                    href="contact.html"
-                    class="special-btn"
-                >
-
-                    Contact Us
-
-                    <i class="ri-arrow-right-line"></i>
-
-                </a>
-
-            </div>
-
-        </section>
+        <!--
+            Backend category sections
+            will be created here.
+        -->
 
     </main>
+
+
+
+    <!-- =====================================================
+         NO RESULTS
+    ====================================================== -->
+
+    <div
+        class="no-results"
+        id="noResults"
+    >
+
+        <i class="ri-search-line"></i>
+
+
+        <h3>
+            No items found
+        </h3>
+
+
+        <p>
+            Try another search or choose a different category.
+        </p>
+
+    </div>
 
 
 
@@ -1958,10 +343,11 @@
 
     <footer>
 
+
         <div class="footer-container">
 
 
-            <!-- LOGO -->
+            <!-- FOOTER LOGO -->
 
             <div class="footer-logo">
 
@@ -2073,10 +459,17 @@
 
 
     <!-- =====================================================
-         MENU JAVASCRIPT
+         JAVASCRIPT
+         
+         IMPORTANT:
+         type="module" is required because
+         menu.js uses import.meta.env
     ====================================================== -->
 
-    <script src="menu.js"></script>
+    <script
+        type="module"
+        src="menu.js"
+    ></script>
 
 
 </body>
