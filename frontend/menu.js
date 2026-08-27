@@ -2,7 +2,6 @@ document.addEventListener(
     "DOMContentLoaded",
     function () {
 
-
         /* =====================================================
            API CONFIGURATION
         ===================================================== */
@@ -203,7 +202,9 @@ document.addEventListener(
                     product.category.name ||
                     product.category.title ||
                     "Other"
-                );
+                )
+                    .toString()
+                    .trim();
             }
 
 
@@ -321,6 +322,16 @@ document.addEventListener(
                     .trim();
 
 
+            if (!imagePath) {
+
+                return "";
+            }
+
+
+            /*
+                UploadThing / external image URL
+            */
+
             if (
                 imagePath.startsWith(
                     "http://"
@@ -337,6 +348,10 @@ document.addEventListener(
             }
 
 
+            /*
+                Protocol-relative URL
+            */
+
             if (
                 imagePath.startsWith(
                     "//"
@@ -350,6 +365,10 @@ document.addEventListener(
             }
 
 
+            /*
+                Backend relative path
+            */
+
             if (
                 imagePath.startsWith("/")
             ) {
@@ -361,6 +380,10 @@ document.addEventListener(
             }
 
 
+            /*
+                Normal relative path
+            */
+
             return (
                 API_URL +
                 "/" +
@@ -369,6 +392,36 @@ document.addEventListener(
                         /^\.?\//,
                         ""
                     )
+            );
+        }
+
+
+
+        /* =====================================================
+           CATEGORY IMAGE
+           
+           IMPORTANT:
+           Backend category.image is checked first.
+        ===================================================== */
+
+        function getBackendCategoryImage(
+            category
+        ) {
+
+            if (
+                !category ||
+                typeof category !== "object"
+            ) {
+
+                return "";
+            }
+
+
+            return getImageUrl(
+                category.image ||
+                category.imageUrl ||
+                category.photo ||
+                category.image_url
             );
         }
 
@@ -622,6 +675,23 @@ document.addEventListener(
                     );
 
 
+                /*
+                    Keep only valid category objects.
+                */
+
+                allCategories =
+                    allCategories.filter(
+                        function (category) {
+
+                            return Boolean(
+                                getCategoryName(
+                                    category
+                                )
+                            );
+                        }
+                    );
+
+
                 console.log(
                     "Categories loaded:",
                     allCategories
@@ -662,6 +732,22 @@ document.addEventListener(
                     );
 
 
+                /*
+                    Keep valid product objects.
+                */
+
+                allProducts =
+                    allProducts.filter(
+                        function (product) {
+
+                            return product &&
+                                getProductName(
+                                    product
+                                );
+                        }
+                    );
+
+
                 console.log(
                     "Products loaded:",
                     allProducts
@@ -678,6 +764,49 @@ document.addEventListener(
 
                 allProducts = [];
             }
+        }
+
+
+
+        /* =====================================================
+           FIND BACKEND CATEGORY
+           
+           Matches product.category with
+           backend category.name.
+        ===================================================== */
+
+        function findBackendCategory(
+            categoryName
+        ) {
+
+            const target =
+                normalizeText(
+                    categoryName
+                );
+
+
+            if (!target) {
+
+                return null;
+            }
+
+
+            const category =
+                allCategories.find(
+                    function (item) {
+
+                        return (
+                            normalizeText(
+                                getCategoryName(
+                                    item
+                                )
+                            ) === target
+                        );
+                    }
+                );
+
+
+            return category || null;
         }
 
 
@@ -726,13 +855,17 @@ document.addEventListener(
 
                 seen.add(key);
 
-                categories.push(name);
+                categories.push(
+                    value
+                );
             }
 
 
             /*
-                First use backend
-                category table.
+                First use categories
+                directly from backend.
+
+                This keeps backend order.
             */
 
             allCategories.forEach(
@@ -746,21 +879,31 @@ document.addEventListener(
 
 
             /*
-                Then use product categories.
-
-                This is important because
-                Product.category is a STRING
-                in your backend.
+                Add product categories
+                which may not exist in
+                category table.
             */
 
             allProducts.forEach(
                 function (product) {
 
-                    addCategory(
+                    const productCategory =
                         getProductCategory(
                             product
+                        );
+
+
+                    if (
+                        !findBackendCategory(
+                            productCategory
                         )
-                    );
+                    ) {
+
+                        addCategory(
+                            productCategory
+                        );
+                    }
+
                 }
             );
 
@@ -839,6 +982,18 @@ document.addEventListener(
             categories.forEach(
                 function (category) {
 
+                    const name =
+                        getCategoryName(
+                            category
+                        );
+
+
+                    if (!name) {
+
+                        return;
+                    }
+
+
                     const button =
                         document.createElement(
                             "button"
@@ -847,7 +1002,7 @@ document.addEventListener(
 
                     const slug =
                         createSlug(
-                            category
+                            name
                         );
 
 
@@ -945,6 +1100,25 @@ document.addEventListener(
                 product.id || "";
 
 
+            /*
+                Product image is kept
+                in dataset for future use
+                without changing the current
+                menu design.
+            */
+
+            const productImage =
+                getImageUrl(
+                    product.image ||
+                    product.imageUrl ||
+                    product.photo
+                );
+
+
+            article.dataset.image =
+                productImage;
+
+
             article.innerHTML = `
 
                 <div class="item-name">
@@ -976,6 +1150,10 @@ document.addEventListener(
 
         /* =====================================================
            CREATE CATEGORY SECTION
+           
+           IMPORTANT:
+           category is now the actual backend
+           category object whenever available.
         ===================================================== */
 
         function createCategorySection(
@@ -1015,6 +1193,21 @@ document.addEventListener(
 
 
             /*
+                Store backend category id.
+            */
+
+            if (
+                category &&
+                typeof category === "object" &&
+                category.id
+            ) {
+
+                section.dataset.categoryId =
+                    category.id;
+            }
+
+
+            /*
                 Alternate layout.
             */
 
@@ -1028,41 +1221,21 @@ document.addEventListener(
             }
 
 
-            /*
-                Find first product
-                image.
-            */
+            /* =================================================
+               CATEGORY IMAGE
+
+               FIRST:
+               backend category.image
+
+               SECOND:
+               fallback image
+            ================================================= */
 
             let categoryImage =
-                "";
+                getBackendCategoryImage(
+                    category
+                );
 
-
-            for (
-                const product
-                of products
-            ) {
-
-                const image =
-                    getImageUrl(
-                        product.image ||
-                        product.imageUrl ||
-                        product.photo
-                    );
-
-
-                if (image) {
-
-                    categoryImage =
-                        image;
-
-                    break;
-                }
-            }
-
-
-            /*
-                Fallback image.
-            */
 
             if (!categoryImage) {
 
@@ -1122,6 +1295,10 @@ document.addEventListener(
                 );
 
 
+            /*
+                Render products.
+            */
+
             products.forEach(
                 function (product) {
 
@@ -1130,9 +1307,14 @@ document.addEventListener(
                             product
                         )
                     );
+
                 }
             );
 
+
+            /*
+                Category image fallback.
+            */
 
             const image =
                 section.querySelector(
@@ -1159,6 +1341,7 @@ document.addEventListener(
 
                             image.src =
                                 fallback;
+
                         }
 
                     }
@@ -1167,6 +1350,89 @@ document.addEventListener(
 
 
             return section;
+        }
+
+
+
+        /* =====================================================
+           GROUP PRODUCTS
+           
+           Important:
+           category object from backend is
+           preserved here.
+        ===================================================== */
+
+        function groupProductsByCategory() {
+
+            const groups =
+                new Map();
+
+
+            allProducts.forEach(
+                function (product) {
+
+                    const productCategory =
+                        getProductCategory(
+                            product
+                        );
+
+
+                    const key =
+                        normalizeText(
+                            productCategory
+                        );
+
+
+                    if (!key) {
+
+                        return;
+                    }
+
+
+                    if (
+                        !groups.has(key)
+                    ) {
+
+                        /*
+                            Find the actual category
+                            object returned by backend.
+                        */
+
+                        const backendCategory =
+                            findBackendCategory(
+                                productCategory
+                            );
+
+
+                        groups.set(
+                            key,
+                            {
+                                name:
+                                    getCategoryName(
+                                        backendCategory
+                                    ) ||
+                                    productCategory,
+
+                                category:
+                                    backendCategory,
+
+                                products:
+                                    []
+                            }
+                        );
+                    }
+
+
+                    groups
+                        .get(key)
+                        .products
+                        .push(product);
+
+                }
+            );
+
+
+            return groups;
         }
 
 
@@ -1208,47 +1474,7 @@ document.addEventListener(
             */
 
             const groups =
-                new Map();
-
-
-            allProducts.forEach(
-                function (product) {
-
-                    const category =
-                        getProductCategory(
-                            product
-                        );
-
-
-                    const key =
-                        normalizeText(
-                            category
-                        );
-
-
-                    if (
-                        !groups.has(key)
-                    ) {
-
-                        groups.set(
-                            key,
-                            {
-                                name:
-                                    category,
-
-                                products:
-                                    []
-                            }
-                        );
-                    }
-
-
-                    groups
-                        .get(key)
-                        .products
-                        .push(product);
-                }
-            );
+                groupProductsByCategory();
 
 
             /*
@@ -1261,9 +1487,23 @@ document.addEventListener(
             groups.forEach(
                 function (group) {
 
+                    /*
+                        IMPORTANT:
+
+                        Use backend category object
+                        when available.
+
+                        Otherwise use category name.
+                    */
+
+                    const category =
+                        group.category ||
+                        group.name;
+
+
                     const section =
                         createCategorySection(
-                            group.name,
+                            category,
                             group.products,
                             index
                         );
@@ -1351,6 +1591,7 @@ document.addEventListener(
 
                                 image.src =
                                     fallback;
+
                             }
 
                         }
@@ -1456,7 +1697,6 @@ document.addEventListener(
 
                                 item.style.display =
                                     "";
-
 
                                 visibleItems++;
 
@@ -1582,6 +1822,7 @@ document.addEventListener(
                                 item.classList.remove(
                                     "active"
                                 );
+
                             }
                         );
 
@@ -1792,6 +2033,10 @@ document.addEventListener(
                 );
 
 
+                /*
+                    Load both APIs together.
+                */
+
                 await Promise.all(
                     [
                         loadCategories(),
@@ -1800,7 +2045,20 @@ document.addEventListener(
                 );
 
 
+                /*
+                    Category buttons must be
+                    rendered after backend data
+                    has arrived.
+                */
+
                 renderCategoryButtons();
+
+
+                /*
+                    Menu sections must be
+                    rendered after both categories
+                    and products are available.
+                */
 
                 renderMenu();
 
@@ -1820,6 +2078,7 @@ document.addEventListener(
                     "Total categories:",
                     allCategories.length
                 );
+
 
             } catch (error) {
 
@@ -1847,6 +2106,11 @@ document.addEventListener(
                 return;
             }
 
+
+            /*
+                Preserve selected category
+                and search text while refreshing.
+            */
 
             await initializeMenu();
         }
@@ -1919,6 +2183,46 @@ document.addEventListener(
 
         window.refreshMenuFromBackend =
             refreshMenu;
+
+
+
+        /* =====================================================
+           DEBUG DATA
+           
+           Useful for checking backend
+           data directly in browser console.
+        ===================================================== */
+
+        window.coldCafeMenuData = {
+
+            getProducts:
+                function () {
+
+                    return allProducts;
+                },
+
+            getCategories:
+                function () {
+
+                    return allCategories;
+                },
+
+            getAPI:
+                function () {
+
+                    return {
+                        base:
+                            API_URL,
+
+                        products:
+                            PRODUCTS_URL,
+
+                        categories:
+                            CATEGORIES_URL
+                    };
+                }
+
+        };
 
 
 

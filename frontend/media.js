@@ -2,44 +2,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        API CONFIGURATION
-       IMPORTANT:
-       Backend URL comes ONLY from .env
-    ===================================================== */
+       API ONLY FROM .env
+       VITE_API_URL=your-backend-url
+    ====================================================== */
 
     const API_BASE_URL =
         import.meta.env.VITE_API_URL;
 
-
     if (!API_BASE_URL) {
-
         console.error(
             "VITE_API_URL is missing from .env"
         );
-
-        showError();
-
-        return;
     }
 
-
     const API_URL =
-        API_BASE_URL.replace(/\/+$/, "");
-
+        String(API_BASE_URL || "")
+            .replace(/\/+$/, "");
 
     const MEDIA_API_URL =
         `${API_URL}/api/media`;
 
 
-    console.log(
-        "Media API:",
-        MEDIA_API_URL
-    );
-
-
-
     /* =====================================================
        DOM ELEMENTS
-    ===================================================== */
+    ====================================================== */
 
     const mediaGallery =
         document.getElementById("mediaGallery");
@@ -60,7 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("retryMedia");
 
 
-    /* LIGHTBOX */
+    /* =====================================================
+       LIGHTBOX
+    ====================================================== */
 
     const mediaLightbox =
         document.getElementById("mediaLightbox");
@@ -72,48 +60,35 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("lightboxTitle");
 
     const lightboxDescription =
-        document.getElementById(
-            "lightboxDescription"
-        );
+        document.getElementById("lightboxDescription");
 
     const lightboxCategory =
-        document.getElementById(
-            "lightboxCategory"
-        );
+        document.getElementById("lightboxCategory");
 
     const lightboxClose =
-        document.getElementById(
-            "lightboxClose"
-        );
+        document.getElementById("lightboxClose");
 
     const lightboxPrev =
-        document.getElementById(
-            "lightboxPrev"
-        );
+        document.getElementById("lightboxPrev");
 
     const lightboxNext =
-        document.getElementById(
-            "lightboxNext"
-        );
+        document.getElementById("lightboxNext");
 
 
-    /* NAVBAR */
+    /* =====================================================
+       NAVBAR
+    ====================================================== */
 
     const menuToggle =
-        document.getElementById(
-            "menuToggle"
-        );
+        document.getElementById("menuToggle");
 
     const navLinks =
-        document.getElementById(
-            "navLinks"
-        );
-
+        document.getElementById("navLinks");
 
 
     /* =====================================================
        STATE
-    ===================================================== */
+    ====================================================== */
 
     let mediaItems = [];
 
@@ -123,19 +98,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let currentIndex = 0;
 
+    let lightboxItems = [];
+
     let isLoading = false;
 
 
-
     /* =====================================================
-       TEXT HELPERS
-    ===================================================== */
+       HELPERS
+    ====================================================== */
 
     function normalizeText(value) {
 
-        return String(value || "")
-            .toLowerCase()
+        return String(value ?? "")
             .trim()
+            .toLowerCase()
             .replace(/\s+/g, " ");
     }
 
@@ -155,109 +131,111 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     /* =====================================================
        BACKEND DATA HELPERS
+    ====================================================== */
 
-       Backend model:
+    function getId(item) {
 
-       id
-       title
-       description
-       image
-       category
-    ===================================================== */
+        return item?.id ?? "";
+    }
+
 
     function getTitle(item) {
 
-        return (
-            item?.title ||
-            "Cold Cafe Moment"
-        )
-            .toString()
-            .trim();
+        const value =
+            item?.title;
+
+        if (
+            value !== null &&
+            value !== undefined &&
+            String(value).trim()
+        ) {
+            return String(value).trim();
+        }
+
+        return "Cold Cafe Moment";
     }
 
 
     function getDescription(item) {
 
-        return (
-            item?.description ||
-            ""
-        )
-            .toString()
-            .trim();
+        const value =
+            item?.description;
+
+        if (
+            value !== null &&
+            value !== undefined
+        ) {
+            return String(value).trim();
+        }
+
+        return "";
     }
 
 
-    function getCategory(item) {
+    function getEventType(item) {
 
-        return (
-            item?.category ||
-            ""
-        )
-            .toString()
-            .trim();
+        const value =
+            item?.eventType;
+
+        if (
+            value !== null &&
+            value !== undefined &&
+            String(value).trim()
+        ) {
+            return String(value).trim();
+        }
+
+        return "";
     }
 
 
     function getImage(item) {
 
-        return (
-            item?.image ||
-            ""
-        )
-            .toString()
-            .trim();
+        const value =
+            item?.image;
+
+        if (
+            value !== null &&
+            value !== undefined
+        ) {
+            return String(value).trim();
+        }
+
+        return "";
     }
 
 
-
     /* =====================================================
-       IMAGE URL HANDLER
-
-       If backend returns:
-
-       https://....
-
-       use directly.
-
-       If backend returns:
-
-       /uploads/media/image.jpg
-
-       attach API base URL.
-    ===================================================== */
+       IMAGE URL
+    ====================================================== */
 
     function getImageURL(item) {
 
         const image =
             getImage(item);
 
-
         if (!image) {
-
             return "";
         }
 
 
-        /* Full URL */
+        /* Already complete URL */
 
         if (
             image.startsWith("http://") ||
             image.startsWith("https://")
         ) {
-
             return image;
         }
 
 
-        /* Protocol relative */
+        /* Protocol-relative URL */
 
         if (
             image.startsWith("//")
         ) {
-
             return (
                 window.location.protocol +
                 image
@@ -265,12 +243,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /* Backend absolute path */
+        /* Absolute backend path */
 
         if (
             image.startsWith("/")
         ) {
-
             return (
                 API_URL +
                 image
@@ -278,7 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /* Backend relative path */
+        /* Relative backend path */
 
         return (
             API_URL +
@@ -291,58 +268,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     /* =====================================================
-       RESPONSE HANDLER
-    ===================================================== */
+       EXTRACT BACKEND RESPONSE
+    ====================================================== */
 
     function extractMedia(response) {
-
-        /*
-         * Backend currently returns:
-
-         [
-             {
-                 id,
-                 title,
-                 description,
-                 image,
-                 category
-             }
-         ]
-        */
 
         if (
             Array.isArray(response)
         ) {
-
             return response;
         }
 
 
-        /*
-         * Future-safe support
-        */
-
         if (
             response &&
-            Array.isArray(
-                response.media
-            )
+            Array.isArray(response.media)
         ) {
-
             return response.media;
         }
 
 
         if (
             response &&
-            Array.isArray(
-                response.data
-            )
+            Array.isArray(response.data)
         ) {
-
             return response.data;
+        }
+
+
+        if (
+            response &&
+            Array.isArray(response.results)
+        ) {
+            return response.results;
         }
 
 
@@ -350,20 +309,162 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =====================================================
+       NORMALIZE MEDIA
+    ====================================================== */
+
+    function normalizeMediaItem(item) {
+
+        if (
+            !item ||
+            typeof item !== "object"
+        ) {
+            return null;
+        }
+
+        return {
+
+            id:
+                getId(item),
+
+            title:
+                getTitle(item),
+
+            description:
+                getDescription(item),
+
+            image:
+                getImage(item),
+
+            eventType:
+                getEventType(item)
+
+        };
+    }
+
+
+    /* =====================================================
+       REMOVE DUPLICATES
+       
+       IMPORTANT FIX:
+       
+       Previously ID was preferred.
+       If backend had:
+       
+       ID 1 -> same-image.jpg
+       ID 2 -> same-image.jpg
+       
+       both could appear.
+
+       Now IMAGE is the primary duplicate key.
+    ====================================================== */
+
+    function removeDuplicateMedia(items) {
+
+        const seenImages =
+            new Set();
+
+        const seenIds =
+            new Set();
+
+        const unique =
+            [];
+
+
+        items.forEach(item => {
+
+            const image =
+                normalizeText(
+                    getImageURL(item)
+                );
+
+            const title =
+                normalizeText(
+                    getTitle(item)
+                );
+
+            const id =
+                normalizeText(
+                    getId(item)
+                );
+
+
+            /*
+             * If image exists,
+             * image is the strongest duplicate key.
+             */
+
+            if (image) {
+
+                if (
+                    seenImages.has(image)
+                ) {
+                    return;
+                }
+
+                seenImages.add(image);
+
+                unique.push(item);
+
+                return;
+            }
+
+
+            /*
+             * If no image exists,
+             * fall back to ID.
+             */
+
+            if (id) {
+
+                if (
+                    seenIds.has(id)
+                ) {
+                    return;
+                }
+
+                seenIds.add(id);
+
+                unique.push(item);
+
+                return;
+            }
+
+
+            /*
+             * Last fallback:
+             * title.
+             */
+
+            const titleKey =
+                `title:${title}`;
+
+            if (
+                seenIds.has(titleKey)
+            ) {
+                return;
+            }
+
+            seenIds.add(titleKey);
+
+            unique.push(item);
+
+        });
+
+
+        return unique;
+    }
+
 
     /* =====================================================
        UI STATES
-    ===================================================== */
+    ====================================================== */
 
     function showLoading() {
 
-        if (mediaLoading) {
-
-            mediaLoading.classList.add(
-                "show"
-            );
-        }
-
+        mediaLoading?.classList.add(
+            "show"
+        );
 
         mediaEmpty?.classList.remove(
             "show"
@@ -387,11 +488,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         hideLoading();
 
-
         mediaEmpty?.classList.add(
             "show"
         );
-
 
         mediaError?.classList.remove(
             "show"
@@ -403,11 +502,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         hideLoading();
 
-
         mediaEmpty?.classList.remove(
             "show"
         );
-
 
         mediaError?.classList.add(
             "show"
@@ -415,15 +512,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    function hideAllStates() {
+    function hideStates() {
 
         hideLoading();
-
 
         mediaEmpty?.classList.remove(
             "show"
         );
-
 
         mediaError?.classList.remove(
             "show"
@@ -431,12 +526,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     /* =====================================================
        FETCH MEDIA
-    ===================================================== */
+    ====================================================== */
 
     async function fetchMedia() {
+
+        if (!API_URL) {
+
+            throw new Error(
+                "VITE_API_URL is not configured."
+            );
+        }
+
 
         const response =
             await fetch(
@@ -463,65 +565,65 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        const responseData =
+        const data =
             await response.json();
 
 
-        console.log(
-            "Media data from backend:",
-            responseData
-        );
+        const extracted =
+            extractMedia(data);
 
 
-        return extractMedia(
-            responseData
+        const normalized =
+            extracted
+                .map(normalizeMediaItem)
+                .filter(Boolean);
+
+
+        return removeDuplicateMedia(
+            normalized
         );
     }
 
 
-
     /* =====================================================
-       CATEGORY LIST
-    ===================================================== */
+       GET UNIQUE EVENT TYPES
+    ====================================================== */
 
     function getCategories() {
 
         const categories = [];
 
-        const existing =
+        const seen =
             new Set();
 
 
         mediaItems.forEach(item => {
 
-            const category =
-                getCategory(item);
+            const eventType =
+                getEventType(item);
 
-
-            if (!category) {
-
+            if (!eventType) {
                 return;
             }
 
 
             const key =
                 normalizeText(
-                    category
+                    eventType
                 );
 
 
             if (
-                existing.has(key)
+                seen.has(key)
             ) {
-
                 return;
             }
 
 
-            existing.add(key);
+            seen.add(key);
 
             categories.push(
-                category
+                eventType
             );
 
         });
@@ -531,51 +633,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     /* =====================================================
-       RENDER CATEGORY BUTTONS
-    ===================================================== */
+       RENDER FILTER BUTTONS
+    ====================================================== */
 
     function renderCategories() {
 
         if (!mediaCategories) {
-
             return;
         }
 
 
-        mediaCategories.innerHTML = "";
+        mediaCategories.innerHTML =
+            "";
 
-
-        /* ALL */
 
         const allButton =
             document.createElement(
                 "button"
             );
 
-
         allButton.type =
             "button";
-
 
         allButton.className =
             "media-filter";
 
-
         allButton.dataset.category =
             "all";
-
 
         allButton.textContent =
             "All";
 
 
         if (
-            currentCategory ===
-            "all"
+            currentCategory === "all"
         ) {
-
             allButton.classList.add(
                 "active"
             );
@@ -587,14 +680,8 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* BACKEND CATEGORIES */
-
-        const categories =
-            getCategories();
-
-
-        categories.forEach(
-            category => {
+        getCategories()
+            .forEach(eventType => {
 
                 const button =
                     document.createElement(
@@ -612,19 +699,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 button.dataset.category =
                     normalizeText(
-                        category
+                        eventType
                     );
 
 
                 button.textContent =
-                    category;
+                    eventType;
 
 
                 if (
                     currentCategory ===
-                    normalizeText(
-                        category
-                    )
+                    normalizeText(eventType)
                 ) {
 
                     button.classList.add(
@@ -637,21 +722,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     button
                 );
 
-            }
-        );
+            });
     }
 
 
-
     /* =====================================================
-       FILTER MEDIA
-    ===================================================== */
+       FILTER
+    ====================================================== */
 
     function getFilteredMedia() {
 
         if (
-            currentCategory ===
-            "all"
+            currentCategory === "all"
         ) {
 
             return [
@@ -665,7 +747,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 return (
                     normalizeText(
-                        getCategory(item)
+                        getEventType(item)
                     ) ===
                     currentCategory
                 );
@@ -675,204 +757,262 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =====================================================
+       CREATE MEDIA CARD
+       
+       FINAL DESIGN:
+
+       ┌─────────────────────────────┐
+       │  Birthday                   │
+       │                             │
+       │        BACKEND IMAGE        │
+       │                             │
+       │ ┌─────────────────────────┐ │
+       │ │ Birthday                │ │
+       │ │ A special birthday...   │ │
+       │ └─────────────────────────┘ │
+       └─────────────────────────────┘
+    ====================================================== */
+
+    function createMediaCard(
+        item,
+        index
+    ) {
+
+        const image =
+            getImageURL(item);
+
+        const title =
+            getTitle(item);
+
+        const description =
+            getDescription(item);
+
+        const eventType =
+            getEventType(item);
+
+
+        if (!image) {
+            return null;
+        }
+
+
+        const card =
+            document.createElement(
+                "article"
+            );
+
+
+        card.className =
+            "media-card";
+
+
+        /*
+         * TOP PILL
+         * eventType = Birthday,
+         * Anniversary, Wedding etc.
+         */
+
+        const typePill =
+            eventType
+                ? `
+                    <span class="media-card-type">
+                        ${escapeHTML(eventType)}
+                    </span>
+                  `
+                : "";
+
+
+        card.innerHTML = `
+
+            <button
+                type="button"
+                class="media-card-button"
+                aria-label="Open ${escapeHTML(title)}"
+            >
+
+                <img
+                    src="${escapeHTML(image)}"
+                    alt="${escapeHTML(title)}"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+
+                ${typePill}
+
+
+                <div class="media-card-overlay">
+
+                    <div class="media-card-info">
+
+                        <h3>
+                            ${escapeHTML(title)}
+                        </h3>
+
+                        ${
+                            description
+                                ? `
+                                    <p>
+                                        ${escapeHTML(description)}
+                                    </p>
+                                  `
+                                : ""
+                        }
+
+                    </div>
+
+
+                    <span
+                        class="media-card-icon"
+                        aria-hidden="true"
+                    >
+                        <i class="ri-expand-diagonal-line"></i>
+                    </span>
+
+                </div>
+
+            </button>
+        `;
+
+
+        /* =================================================
+           IMAGE ERROR HANDLING
+        ================================================= */
+
+        const imageElement =
+            card.querySelector(
+                "img"
+            );
+
+
+        imageElement?.addEventListener(
+            "error",
+            () => {
+
+                imageElement.classList.add(
+                    "image-error"
+                );
+
+                imageElement.alt =
+                    `${title} - image unavailable`;
+
+            }
+        );
+
+
+        /* =================================================
+           OPEN LIGHTBOX
+        ================================================= */
+
+        const cardButton =
+            card.querySelector(
+                ".media-card-button"
+            );
+
+
+        cardButton?.addEventListener(
+            "click",
+            () => {
+
+                openLightbox(
+                    index,
+                    filteredMedia
+                );
+
+            }
+        );
+
+
+        return card;
+    }
+
 
     /* =====================================================
        RENDER GALLERY
-    ===================================================== */
+    ====================================================== */
 
     function renderGallery() {
 
         if (!mediaGallery) {
-
             return;
         }
 
 
-        mediaGallery.innerHTML = "";
+        /*
+         * Clear existing cards.
+         * This prevents old cards being appended again.
+         */
+
+        mediaGallery.innerHTML =
+            "";
 
 
         filteredMedia =
             getFilteredMedia();
 
 
+        /*
+         * Only items having image are displayed.
+         */
+
+        filteredMedia =
+            filteredMedia.filter(
+                item => {
+
+                    return Boolean(
+                        getImageURL(item)
+                    );
+
+                }
+            );
+
+
         if (
             filteredMedia.length === 0
         ) {
 
-            showEmpty();
+            if (
+                mediaItems.length === 0
+            ) {
+
+                showEmpty();
+
+            } else {
+
+                hideStates();
+
+                mediaEmpty?.classList.add(
+                    "show"
+                );
+            }
 
             return;
         }
 
 
-        hideAllStates();
+        hideStates();
 
+
+        /*
+         * IMPORTANT:
+         * Every filtered backend item
+         * renders exactly once.
+         */
 
         filteredMedia.forEach(
             (item, index) => {
 
-                const image =
-                    getImageURL(item);
+                const card =
+                    createMediaCard(
+                        item,
+                        index
+                    );
 
 
-                /*
-                 * Do not render broken records.
-                 */
-
-                if (!image) {
-
+                if (!card) {
                     return;
                 }
-
-
-                const title =
-                    getTitle(item);
-
-
-                const description =
-                    getDescription(item);
-
-
-                const category =
-                    getCategory(item);
-
-
-                /*
-                 * IMPORTANT:
-                 * This class is now styled
-                 * in media.css.
-                 */
-
-                const card =
-                    document.createElement(
-                        "article"
-                    );
-
-
-                card.className =
-                    "media-card";
-
-
-                card.innerHTML = `
-
-                    <button
-                        type="button"
-                        class="media-card-button"
-                        aria-label="Open ${escapeHTML(title)}"
-                    >
-
-                        <img
-                            src="${escapeHTML(image)}"
-                            alt="${escapeHTML(title)}"
-                            loading="lazy"
-                            decoding="async"
-                        >
-
-
-                        <div class="media-card-overlay">
-
-                            <div class="media-card-info">
-
-                                ${
-                                    category
-                                        ? `
-                                            <span>
-                                                ${escapeHTML(category)}
-                                            </span>
-                                          `
-                                        : ""
-                                }
-
-
-                                <h3>
-                                    ${escapeHTML(title)}
-                                </h3>
-
-
-                                ${
-                                    description
-                                        ? `
-                                            <p>
-                                                ${escapeHTML(description)}
-                                            </p>
-                                          `
-                                        : ""
-                                }
-
-                            </div>
-
-
-                            <span
-                                class="media-card-icon"
-                                aria-hidden="true"
-                            >
-
-                                <i class="ri-expand-diagonal-line"></i>
-
-                            </span>
-
-                        </div>
-
-                    </button>
-
-                `;
-
-
-                const imageElement =
-                    card.querySelector(
-                        "img"
-                    );
-
-
-                /*
-                 * IMAGE LOAD ERROR
-                 */
-
-                imageElement.addEventListener(
-                    "error",
-                    () => {
-
-                        console.error(
-                            "Failed image:",
-                            image
-                        );
-
-
-                        card.remove();
-
-
-                        if (
-                            mediaGallery.children
-                                .length === 0
-                        ) {
-
-                            showEmpty();
-                        }
-
-                    }
-                );
-
-
-                /*
-                 * IMAGE CLICK
-                 */
-
-                const cardButton =
-                    card.querySelector(
-                        ".media-card-button"
-                    );
-
-
-                cardButton.addEventListener(
-                    "click",
-                    () => {
-
-                        openLightbox(
-                            index
-                        );
-
-                    }
-                );
 
 
                 mediaGallery.appendChild(
@@ -883,14 +1023,8 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /*
-         * Check if nothing
-         * actually rendered.
-         */
-
         if (
-            mediaGallery.children
-                .length === 0
+            mediaGallery.children.length === 0
         ) {
 
             showEmpty();
@@ -898,15 +1032,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     /* =====================================================
-       CATEGORY CLICK
-    ===================================================== */
+       CATEGORY EVENTS
+    ====================================================== */
 
     function setupCategoryEvents() {
 
         if (!mediaCategories) {
-
             return;
         }
 
@@ -922,7 +1054,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 if (!button) {
-
                     return;
                 }
 
@@ -937,12 +1068,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         ".media-filter"
                     )
                     .forEach(
-                        filterButton => {
+                        filter => {
 
-                            filterButton.classList.toggle(
+                            filter.classList.toggle(
                                 "active",
-                                filterButton ===
-                                button
+                                filter === button
                             );
 
                         }
@@ -950,22 +1080,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 renderGallery();
+
             }
         );
     }
 
 
-
     /* =====================================================
        LIGHTBOX
-    ===================================================== */
+    ====================================================== */
 
-    function openLightbox(index) {
+    function openLightbox(
+        index,
+        source
+    ) {
+
+        lightboxItems =
+            Array.isArray(source)
+                ? source
+                : filteredMedia;
+
 
         if (
-            filteredMedia.length === 0
+            lightboxItems.length === 0
         ) {
+            return;
+        }
 
+
+        if (
+            index < 0 ||
+            index >= lightboxItems.length
+        ) {
             return;
         }
 
@@ -994,17 +1140,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =====================================================
+       UPDATE LIGHTBOX
+    ====================================================== */
 
     function updateLightbox() {
 
         const item =
-            filteredMedia[
+            lightboxItems[
                 currentIndex
             ];
 
 
         if (!item) {
-
             return;
         }
 
@@ -1012,17 +1160,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const image =
             getImageURL(item);
 
-
         const title =
             getTitle(item);
-
 
         const description =
             getDescription(item);
 
-
-        const category =
-            getCategory(item);
+        const eventType =
+            getEventType(item);
 
 
         if (lightboxImage) {
@@ -1052,29 +1197,32 @@ document.addEventListener("DOMContentLoaded", () => {
         if (lightboxCategory) {
 
             lightboxCategory.textContent =
-                category;
+                eventType;
         }
 
 
-        const hasMultiple =
-            filteredMedia.length > 1;
+        const multiple =
+            lightboxItems.length > 1;
 
 
         if (lightboxPrev) {
 
             lightboxPrev.disabled =
-                !hasMultiple;
+                !multiple;
         }
 
 
         if (lightboxNext) {
 
             lightboxNext.disabled =
-                !hasMultiple;
+                !multiple;
         }
     }
 
 
+    /* =====================================================
+       CLOSE LIGHTBOX
+    ====================================================== */
 
     function closeLightbox() {
 
@@ -1095,20 +1243,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         if (lightboxImage) {
-
-            lightboxImage.src =
-                "";
+            lightboxImage.src = "";
         }
     }
 
 
+    /* =====================================================
+       PREVIOUS
+    ====================================================== */
 
     function showPrevious() {
 
         if (
-            filteredMedia.length <= 1
+            lightboxItems.length <= 1
         ) {
-
             return;
         }
 
@@ -1121,7 +1269,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
 
             currentIndex =
-                filteredMedia.length - 1;
+                lightboxItems.length - 1;
         }
 
 
@@ -1129,13 +1277,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =====================================================
+       NEXT
+    ====================================================== */
 
     function showNext() {
 
         if (
-            filteredMedia.length <= 1
+            lightboxItems.length <= 1
         ) {
-
             return;
         }
 
@@ -1145,7 +1295,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (
             currentIndex >=
-            filteredMedia.length
+            lightboxItems.length
         ) {
 
             currentIndex = 0;
@@ -1156,10 +1306,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     /* =====================================================
        LIGHTBOX EVENTS
-    ===================================================== */
+    ====================================================== */
 
     function setupLightboxEvents() {
 
@@ -1181,10 +1330,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /*
-         * Close when clicking background.
-         */
-
         mediaLightbox?.addEventListener(
             "click",
             event => {
@@ -1201,10 +1346,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /*
-         * Keyboard navigation.
-         */
-
         document.addEventListener(
             "keydown",
             event => {
@@ -1214,32 +1355,24 @@ document.addEventListener("DOMContentLoaded", () => {
                         "show"
                     )
                 ) {
-
                     return;
                 }
 
 
                 if (
-                    event.key ===
-                    "Escape"
+                    event.key === "Escape"
                 ) {
 
                     closeLightbox();
-                }
 
-
-                if (
-                    event.key ===
-                    "ArrowLeft"
+                } else if (
+                    event.key === "ArrowLeft"
                 ) {
 
                     showPrevious();
-                }
 
-
-                if (
-                    event.key ===
-                    "ArrowRight"
+                } else if (
+                    event.key === "ArrowRight"
                 ) {
 
                     showNext();
@@ -1250,10 +1383,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     /* =====================================================
        MOBILE NAVBAR
-    ===================================================== */
+    ====================================================== */
 
     function setupMobileNavbar() {
 
@@ -1261,14 +1393,16 @@ document.addEventListener("DOMContentLoaded", () => {
             !menuToggle ||
             !navLinks
         ) {
-
             return;
         }
 
 
         menuToggle.addEventListener(
             "click",
-            () => {
+            event => {
+
+                event.stopPropagation();
+
 
                 const isOpen =
                     navLinks.classList.toggle(
@@ -1290,11 +1424,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         );
 
-
-        /*
-         * Close menu after
-         * clicking a navigation link.
-         */
 
         navLinks
             .querySelectorAll("a")
@@ -1326,11 +1455,6 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        /*
-         * Close menu if user
-         * clicks outside navbar.
-         */
-
         document.addEventListener(
             "click",
             event => {
@@ -1342,40 +1466,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 if (
-                    !navbar?.contains(
+                    !navbar ||
+                    navbar.contains(
                         event.target
                     )
                 ) {
-
-                    navLinks.classList.remove(
-                        "open"
-                    );
-
-
-                    menuToggle.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-
-                    menuToggle.innerHTML =
-                        '<i class="ri-menu-3-line"></i>';
+                    return;
                 }
+
+
+                navLinks.classList.remove(
+                    "open"
+                );
+
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+
+                menuToggle.innerHTML =
+                    '<i class="ri-menu-3-line"></i>';
 
             }
         );
     }
 
 
-
     /* =====================================================
        LOAD MEDIA
-    ===================================================== */
+    ====================================================== */
 
     async function loadMedia() {
 
         if (isLoading) {
-
             return;
         }
 
@@ -1389,38 +1514,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
 
-            console.log(
-                "Fetching media from:",
-                MEDIA_API_URL
-            );
-
-
             const data =
                 await fetchMedia();
 
 
+            /*
+             * Backend is the single source
+             * of truth.
+             */
+
             mediaItems =
-                Array.isArray(data)
-                    ? data
-                    : [];
-
-
-            console.log(
-                "Media count:",
-                mediaItems.length
-            );
-
-
-            if (
-                mediaItems.length === 0
-            ) {
-
-                renderCategories();
-
-                showEmpty();
-
-                return;
-            }
+                data;
 
 
             currentCategory =
@@ -1429,23 +1533,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
             renderCategories();
 
+
+            if (
+                mediaItems.length === 0
+            ) {
+
+                showEmpty();
+
+                return;
+            }
+
+
             renderGallery();
 
-        }
-
-        catch (error) {
+        } catch (error) {
 
             console.error(
-                "Media API error:",
+                "Cold Cafe Media Error:",
                 error
             );
 
 
             showError();
 
-        }
-
-        finally {
+        } finally {
 
             isLoading =
                 false;
@@ -1453,21 +1564,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     /* =====================================================
        RETRY
-    ===================================================== */
+    ====================================================== */
 
     retryMedia?.addEventListener(
         "click",
-        loadMedia
-    );
+        () => {
 
+            loadMedia();
+
+        }
+    );
 
 
     /* =====================================================
        INITIALIZE
-    ===================================================== */
+    ====================================================== */
 
     setupCategoryEvents();
 
