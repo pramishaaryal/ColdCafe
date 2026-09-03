@@ -4,25 +4,11 @@ document.addEventListener(
 
         /* =====================================================
            MOBILE NAVBAR
-           Set up the hamburger navigation FIRST so it always
-           works, independent of backend API availability.
+           NOTE: The hamburger toggle is handled by an inline
+           script in menu.html so it works even when the page is
+           opened directly (file://), where this module script is
+           blocked. Do not re-add the toggle here (double-binding).
         ===================================================== */
-
-        const menuToggle =
-            document.getElementById(
-                "menuToggle"
-            );
-
-
-        const navLinks =
-            document.getElementById(
-                "navLinks"
-            );
-
-
-        setupMobileNavigation();
-
-
 
         /* =====================================================
            API CONFIGURATION
@@ -1876,107 +1862,10 @@ document.addEventListener(
 
         /* =====================================================
            MOBILE NAVIGATION
+           REMOVED: The hamburger toggle is handled by the inline
+           script in menu.html (works on file:// too). Keeping a
+           duplicate here would double-toggle under Vite.
         ===================================================== */
-
-        function setupMobileNavigation() {
-
-            if (
-                !menuToggle ||
-                !navLinks
-            ) {
-
-                return;
-            }
-
-
-            menuToggle.addEventListener(
-                "click",
-                function () {
-
-                    const isOpen =
-                        navLinks.classList.toggle(
-                            "open"
-                        );
-
-
-                    menuToggle.setAttribute(
-                        "aria-expanded",
-                        String(isOpen)
-                    );
-
-
-                    menuToggle.innerHTML =
-                        isOpen
-                            ? '<i class="ri-close-line"></i>'
-                            : '<i class="ri-menu-3-line"></i>';
-
-                }
-            );
-
-
-            navLinks
-                .querySelectorAll("a")
-                .forEach(
-                    function (link) {
-
-                        link.addEventListener(
-                            "click",
-                            function () {
-
-                                navLinks.classList.remove(
-                                    "open"
-                                );
-
-
-                                menuToggle.setAttribute(
-                                    "aria-expanded",
-                                    "false"
-                                );
-
-
-                                menuToggle.innerHTML =
-                                    '<i class="ri-menu-3-line"></i>';
-
-                            }
-                        );
-
-                    }
-                );
-
-
-            document.addEventListener(
-                "click",
-                function (event) {
-
-                    var navbar =
-                        document.querySelector(
-                            ".navbar"
-                        );
-
-                    if (
-                        !navbar ||
-                        navbar.contains(
-                            event.target
-                        )
-                    ) {
-
-                        return;
-                    }
-
-                    navLinks.classList.remove(
-                        "open"
-                    );
-
-                    menuToggle.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-                    menuToggle.innerHTML =
-                        '<i class="ri-menu-3-line"></i>';
-                }
-            );
-        }
 
 
 
