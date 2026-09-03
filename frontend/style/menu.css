@@ -2223,9 +2223,18 @@ footer {
 
         display: flex;
 
-        order: 2;
-
         margin-left: auto;
+
+        z-index: 2001;
+    }
+
+
+    /* Keep the logo and the close button above the full-screen menu */
+    .logo {
+
+        position: relative;
+
+        z-index: 2001;
     }
 
 
@@ -2235,46 +2244,37 @@ footer {
     }
 
 
+    /* Full-screen mobile menu overlay (matches Home Page) */
     .nav-links {
 
-        position: absolute;
+        position: fixed;
 
-        top:
-            calc(100% + 10px);
-
-        left: 0;
-
-        right: 0;
+        inset: 0;
 
         width: 100%;
+
+        min-height: 100vh;
+
+        margin: 0;
+
+        padding:
+            96px 24px 40px;
 
         display: none;
 
         flex-direction: column;
 
-        align-items: stretch;
+        align-items: center;
 
-        gap: 0;
+        justify-content: center;
 
-        margin: 0;
+        gap: 6px;
 
-        padding: 10px;
+        background: #ffffff;
 
-        border-radius: 20px;
+        overflow-y: auto;
 
-        background:
-            rgba(255, 255, 255, 0.97);
-
-        backdrop-filter:
-            blur(18px);
-
-        -webkit-backdrop-filter:
-            blur(18px);
-
-        box-shadow:
-            var(--shadow);
-
-        z-index: 1000;
+        z-index: 2000;
     }
 
 
@@ -2305,11 +2305,15 @@ footer {
         width: 100%;
 
         padding:
-            12px 15px;
+            18px 20px;
 
-        border-radius: 12px;
+        border-radius: 14px;
 
-        font-size: 14px;
+        font-size: 21px;
+
+        font-weight: 600;
+
+        color: var(--blue);
 
         text-align: center;
     }
@@ -2318,7 +2322,9 @@ footer {
     .nav-links a:hover {
 
         background:
-            rgba(35, 70, 111, 0.05);
+            rgba(35, 70, 111, 0.08);
+
+        color: var(--coffee);
     }
 
 
@@ -2730,12 +2736,6 @@ footer {
     }
 
 
-    .nav-links {
-
-        top: 74px;
-    }
-
-
     /* HERO */
 
     .menu-hero {
@@ -2960,15 +2960,6 @@ footer {
     .navbar {
 
         border-radius: 25px;
-    }
-
-
-    .nav-links a {
-
-        font-size: 11px;
-
-        padding:
-            10px 12px;
     }
 
 

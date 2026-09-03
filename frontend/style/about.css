@@ -2075,45 +2075,57 @@ footer {
     }
 
 
-    .menu-toggle {
+    /* Keep the logo and the close button above the full-screen menu */
+    .logo {
 
-        display: flex;
+        position: relative;
+
+        z-index: 2001;
 
     }
 
 
+    .menu-toggle {
+
+        display: flex;
+
+        margin-left: auto;
+
+        z-index: 2001;
+
+    }
+
+
+    /* Full-screen mobile menu overlay (matches Home Page) */
     .nav-links {
 
-        position: absolute;
+        position: fixed;
 
-        top:
-            calc(
-                100% + 10px
-            );
-
-        left: 0;
+        inset: 0;
 
         width: 100%;
+
+        min-height: 100vh;
+
+        margin: 0;
+
+        padding: 96px 24px 40px;
 
         display: none;
 
         flex-direction: column;
 
-        gap: 0;
+        align-items: center;
 
-        padding: 10px;
+        justify-content: center;
 
-        border-radius: 20px;
+        gap: 6px;
 
-        background:
-            rgba(
-                255,
-                255,
-                255,
-                0.97
-            );
+        background: #ffffff;
 
-        box-shadow: var(--shadow);
+        overflow-y: auto;
+
+        z-index: 2000;
 
     }
 
@@ -2143,11 +2155,29 @@ footer {
 
         display: block;
 
+        width: 100%;
+
+        padding: 18px 20px;
+
+        border-radius: 14px;
+
+        font-size: 21px;
+
+        font-weight: 600;
+
+        color: var(--blue);
+
         text-align: center;
 
-        padding: 12px;
+    }
 
-        border-radius: 10px;
+
+    .nav-links a:hover {
+
+        background:
+            rgba(35, 70, 111, 0.08);
+
+        color: var(--coffee);
 
     }
 

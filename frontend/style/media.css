@@ -1668,53 +1668,85 @@ footer {
         width: 68px;
     }
 
+    /* Keep the logo and the close button above the full-screen menu */
+    .logo {
+        position: relative;
+
+        z-index: 2001;
+    }
+
+    /* Full-screen mobile menu overlay (matches Home Page) */
     .nav-links {
-        position: absolute;
+        position: fixed;
 
-        top: calc(100% + 10px);
-
-        left: 0;
+        inset: 0;
 
         width: 100%;
 
-        padding: 22px;
+        min-height: 100vh;
 
-        display: flex;
+        margin: 0;
+
+        padding: 96px 24px 40px;
+
+        display: none;
 
         flex-direction: column;
 
-        gap: 20px;
+        align-items: center;
 
-        border-radius: 24px;
+        justify-content: center;
 
-        background:
-            rgba(255, 255, 255, 0.96);
+        gap: 6px;
 
-        box-shadow: var(--shadow);
+        background: #ffffff;
 
-        opacity: 0;
+        overflow-y: auto;
 
-        visibility: hidden;
-
-        transform: translateY(-10px);
-
-        transition: 0.3s;
+        z-index: 2000;
     }
 
     .nav-links.open {
-        opacity: 1;
-
-        visibility: visible;
-
-        transform: translateY(0);
+        display: flex;
     }
 
-    .nav-links a {
-        font-size: 14px;
+    .nav-links li {
+        width: 100%;
+
+        list-style: none;
     }
 
     .nav-links .nav-contact-mobile {
         display: block;
+    }
+
+    .nav-links a {
+        display: block;
+
+        width: 100%;
+
+        padding: 18px 20px;
+
+        border-radius: 14px;
+
+        font-size: 21px;
+
+        font-weight: 600;
+
+        color: var(--blue);
+
+        text-align: center;
+    }
+
+    .nav-links a:hover {
+        background:
+            rgba(35, 70, 111, 0.08);
+
+        color: var(--coffee);
+    }
+
+    .nav-links a::after {
+        display: none;
     }
 
     .btn-nav {
@@ -1723,6 +1755,10 @@ footer {
 
     .menu-toggle {
         display: flex;
+
+        margin-left: auto;
+
+        z-index: 2001;
     }
 
     .media-gallery {

@@ -1705,29 +1705,34 @@ open the nav links as a clean dropdown.
         display: none;
     }
 
+    /* Keep the logo and the close button above the full-screen menu */
+    .logo {
+        position: relative;
+        z-index: 2001;
+    }
+
     .menu-toggle {
         display: flex;
         margin-left: auto;
+        z-index: 2001;
     }
 
+    /* Full-screen mobile menu overlay (matches Home Page) */
     .nav-links {
-        position: absolute;
-        top: calc(100% + 10px);
-        left: 0;
-        right: 0;
+        position: fixed;
+        inset: 0;
         width: 100%;
+        min-height: 100vh;
         margin: 0;
-        padding: 10px;
+        padding: 96px 24px 40px;
         display: none;
         flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.97);
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-        box-shadow: var(--shadow);
-        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background: #ffffff;
+        overflow-y: auto;
+        z-index: 2000;
     }
 
     .nav-links.open {
@@ -1746,14 +1751,17 @@ open the nav links as a clean dropdown.
     .nav-links a {
         display: block;
         width: 100%;
-        padding: 12px 15px;
-        border-radius: 12px;
-        font-size: 14px;
+        padding: 18px 20px;
+        border-radius: 14px;
+        font-size: 21px;
+        font-weight: 600;
+        color: var(--blue);
         text-align: center;
     }
 
     .nav-links a:hover {
-        background: rgba(35, 70, 111, 0.05);
+        background: rgba(35, 70, 111, 0.08);
+        color: var(--coffee);
     }
 
     .nav-links a::after {
