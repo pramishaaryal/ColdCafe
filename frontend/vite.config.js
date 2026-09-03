@@ -2,6 +2,11 @@ import { fileURLToPath, URL } from 'url';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+    preview: {
+        host: '0.0.0.0',
+        port: parseInt(process.env.PORT || '10000', 10),
+        allowedHosts: true, // allow coldcafe.onrender.com and any Render host; use ['coldcafe.onrender.com'] to restrict
+    },
     build: {
         rollupOptions: {
             input: {
