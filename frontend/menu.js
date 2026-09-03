@@ -3,6 +3,28 @@ document.addEventListener(
     function () {
 
         /* =====================================================
+           MOBILE NAVBAR
+           Set up the hamburger navigation FIRST so it always
+           works, independent of backend API availability.
+        ===================================================== */
+
+        const menuToggle =
+            document.getElementById(
+                "menuToggle"
+            );
+
+
+        const navLinks =
+            document.getElementById(
+                "navLinks"
+            );
+
+
+        setupMobileNavigation();
+
+
+
+        /* =====================================================
            API CONFIGURATION
         ===================================================== */
 
@@ -58,18 +80,6 @@ document.addEventListener(
         const noResults =
             document.getElementById(
                 "noResults"
-            );
-
-
-        const menuToggle =
-            document.getElementById(
-                "menuToggle"
-            );
-
-
-        const navLinks =
-            document.getElementById(
-                "navLinks"
             );
 
 
@@ -1932,6 +1942,40 @@ document.addEventListener(
 
                     }
                 );
+
+
+            document.addEventListener(
+                "click",
+                function (event) {
+
+                    var navbar =
+                        document.querySelector(
+                            ".navbar"
+                        );
+
+                    if (
+                        !navbar ||
+                        navbar.contains(
+                            event.target
+                        )
+                    ) {
+
+                        return;
+                    }
+
+                    navLinks.classList.remove(
+                        "open"
+                    );
+
+                    menuToggle.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                    menuToggle.innerHTML =
+                        '<i class="ri-menu-3-line"></i>';
+                }
+            );
         }
 
 
@@ -2233,8 +2277,6 @@ document.addEventListener(
         setupCategoryEvents();
 
         setupSearch();
-
-        setupMobileNavigation();
 
         setupSmoothScroll();
 

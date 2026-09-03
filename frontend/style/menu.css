@@ -173,6 +173,15 @@ list-style:none;
 
 }
 
+/* Contact item in the nav list: hidden on desktop
+   (desktop uses the .btn-nav Contact button instead),
+   shown only inside the mobile hamburger dropdown. */
+.nav-links .nav-contact-mobile{
+
+display:none;
+
+}
+
 .nav-links a{
 
 text-decoration:none;
@@ -1598,73 +1607,215 @@ transform:translateY(-4px);
 footer {
 
     background:
-        var(--dark-blue);
+        #162C47;
+
+    color:
+        #fff;
 
     padding:
-        70px 8% 20px;
+        70px 6% 30px;
 }
 
 
 .footer-container {
 
-    display: grid;
+    max-width:
+        1280px;
+
+    margin:
+        0 auto;
+
+    display:
+        grid;
 
     grid-template-columns:
-        2fr 1fr 1fr;
+        1.6fr 1fr 1.2fr 1.2fr;
 
-    gap: 50px;
+    gap:
+        50px;
+
+    padding-bottom:
+        45px;
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.15);
 }
 
 
-.footer-logo img {
+.footer-brand {
 
-    width: 100px;
+    display:
+        flex;
 
-    margin-bottom: 20px;
+    flex-direction:
+        column;
+
+    align-items:
+        flex-start;
 }
 
 
-.footer-logo p {
+.footer-logo-img {
+
+    width:
+        130px;
+
+    height:
+        auto;
+
+    display:
+        block;
+
+    margin-bottom:
+        22px;
+}
+
+
+.footer-desc {
 
     color:
         #d8d8d8;
 
-    line-height: 30px;
+    font-size:
+        14px;
 
-    font-size: 13px;
+    line-height:
+        1.8;
+
+    max-width:
+        280px;
+
+    margin:
+        0;
 }
 
 
-.footer-links h3,
-.footer-social h3 {
+.footer-social {
 
-    margin-bottom: 20px;
+    display:
+        flex;
+
+    gap:
+        14px;
+
+    margin-top:
+        26px;
+}
+
+
+.footer-social a {
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.25);
+
+    border-radius:
+        50%;
+
+    background:
+        #23466F;
 
     color:
-        var(--white);
+        #fff;
 
-    font-size: 22px;
+    font-size:
+        18px;
+
+    text-decoration:
+        none;
+
+    transition:
+        0.3s;
+}
+
+
+.footer-social a:hover {
+
+    background:
+        #8B4A18;
+
+    color:
+        #fff;
+
+    border-color:
+        #8B4A18;
+
+    transform:
+        translateY(-6px);
+}
+
+
+.footer-col h4 {
+
+    color:
+        #fff;
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        20px;
+
+    font-weight:
+        600;
+
+    margin:
+        0 0 24px;
 }
 
 
 .footer-links {
 
-    display: flex;
+    list-style:
+        none;
 
-    flex-direction: column;
+    margin:
+        0;
+
+    padding:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        14px;
 }
 
 
 .footer-links a {
 
-    margin-bottom: 14px;
+    text-decoration:
+        none;
 
     color:
         #d8d8d8;
 
+    font-size:
+        15px;
+
     transition:
-        color 0.3s ease,
-        padding-left 0.3s ease;
+        0.3s;
 }
 
 
@@ -1673,67 +1824,150 @@ footer {
     color:
         #D8B07A;
 
-    padding-left: 8px;
+    padding-left:
+        6px;
 }
 
 
-.social-icons {
+.footer-contact {
 
-    display: flex;
+    list-style:
+        none;
 
-    gap: 15px;
+    margin:
+        0;
+
+    padding:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        18px;
 }
 
 
-.social-icons a {
+.footer-contact li {
 
-    width: 48px;
+    display:
+        flex;
 
-    height: 48px;
+    align-items:
+        flex-start;
 
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background:
-        var(--blue);
+    gap:
+        12px;
 
     color:
-        var(--white);
+        #d8d8d8;
 
-    font-size: 20px;
+    font-size:
+        15px;
 
-    transition:
-        background 0.3s ease,
-        transform 0.3s ease;
+    line-height:
+        1.6;
 }
 
 
-.social-icons a:hover {
+.footer-contact i {
 
-    background:
-        #8B4A18;
+    color:
+        #D8B07A;
 
-    transform:
-        translateY(-6px);
+    font-size:
+        18px;
+
+    margin-top:
+        2px;
+}
+
+
+.footer-contact a {
+
+    text-decoration:
+        none;
+
+    color:
+        #d8d8d8;
+
+    transition:
+        0.3s;
+}
+
+
+.footer-contact a:hover {
+
+    color:
+        #D8B07A;
+}
+
+
+.footer-hours {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        20px;
+}
+
+
+.hours-row {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        5px;
+}
+
+
+.hours-days {
+
+    color:
+        #fff;
+
+    font-size:
+        15px;
+
+    font-weight:
+        600;
+}
+
+
+.hours-time {
+
+    color:
+        #d8d8d8;
+
+    font-size:
+        14px;
 }
 
 
 .footer-bottom {
 
-    margin-top: 50px;
+    max-width:
+        1280px;
 
-    padding-top: 25px;
+    margin:
+        0 auto;
 
-    border-top:
-        1px solid
-        rgba(255, 255, 255, 0.15);
+    padding-top:
+        24px;
 
-    text-align: center;
+    text-align:
+        center;
 }
 
 
@@ -1742,9 +1976,83 @@ footer {
     color:
         #d8d8d8;
 
-    font-size: 12px;
+    font-size:
+        13px;
 
-    line-height: 1.6;
+    line-height:
+        1.6;
+
+    margin:
+        0;
+}
+
+
+@media (max-width: 992px) {
+
+    .footer-container {
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap:
+            40px;
+    }
+}
+
+
+@media (max-width: 850px) {
+
+    .footer-container {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    .footer-container {
+
+        grid-template-columns:
+            1fr;
+
+        text-align:
+            left;
+    }
+
+    .footer-brand {
+
+        align-items:
+            flex-start;
+    }
+
+    .footer-social {
+
+        justify-content:
+            flex-start;
+    }
+
+    .footer-contact li {
+
+        justify-content:
+            flex-start;
+    }
+
+    .footer-hours {
+
+        align-items:
+            flex-start;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .footer-bottom {
+
+        font-size: 11px;
+    }
 }
 
 
@@ -1870,15 +2178,6 @@ footer {
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
     }
-
-
-    .footer-container {
-
-        grid-template-columns:
-            1.5fr 1fr 1fr;
-
-        gap: 30px;
-    }
 }
 
 
@@ -1886,7 +2185,12 @@ footer {
    MOBILE NAVIGATION
 ===================================================== */
 
-@media (max-width: 800px) {
+/* ==========================================
+   MOBILE HAMBURGER MENU (<=850px)
+   Match the Home page: same breakpoint, same
+   behavior. Desktop navbar is unchanged above.
+   ========================================== */
+@media (max-width: 850px) {
 
     .navbar {
 
@@ -1894,14 +2198,18 @@ footer {
 
         min-height: 72px;
 
+        height: auto;
+
         margin-top: 10px;
 
         padding:
-            9px 17px;
+            10px 20px;
 
         border-radius: 40px;
 
         position: relative;
+
+        flex-wrap: nowrap;
     }
 
 
@@ -1913,7 +2221,7 @@ footer {
 
     .menu-toggle {
 
-        display: inline-flex;
+        display: flex;
 
         order: 2;
 
@@ -1935,6 +2243,8 @@ footer {
             calc(100% + 10px);
 
         left: 0;
+
+        right: 0;
 
         width: 100%;
 
@@ -1963,6 +2273,8 @@ footer {
 
         box-shadow:
             var(--shadow);
+
+        z-index: 1000;
     }
 
 
@@ -1975,6 +2287,14 @@ footer {
     .nav-links li {
 
         width: 100%;
+
+        list-style: none;
+    }
+
+
+    .nav-links .nav-contact-mobile {
+
+        display: block;
     }
 
 
@@ -1989,7 +2309,9 @@ footer {
 
         border-radius: 12px;
 
-        font-size: 13px;
+        font-size: 14px;
+
+        text-align: center;
     }
 
 
@@ -2005,6 +2327,15 @@ footer {
         display: none;
     }
 
+}
+
+
+/* ==========================================
+   MENU PAGE MOBILE LAYOUT (<=800px)
+   Section layout for tablet/mobile.
+   Keep the existing menu section design.
+   ========================================== */
+@media (max-width: 800px) {
 
     /* HERO */
 
@@ -2375,17 +2706,6 @@ footer {
 
         font-size: 40px;
     }
-
-
-    /* FOOTER */
-
-    .footer-container {
-
-        grid-template-columns:
-            1fr 1fr;
-
-        gap: 30px;
-    }
 }
 
 
@@ -2628,36 +2948,6 @@ footer {
 
         font-size: 11px;
     }
-
-
-    /* FOOTER */
-
-    .footer-container {
-
-        grid-template-columns: 1fr;
-
-        text-align: center;
-    }
-
-
-    .footer-logo img {
-
-        margin-left: auto;
-
-        margin-right: auto;
-    }
-
-
-    .footer-links {
-
-        align-items: center;
-    }
-
-
-    .social-icons {
-
-        justify-content: center;
-    }
 }
 
 
@@ -2801,5 +3091,57 @@ footer {
 
         scroll-behavior:
             auto !important;
+    }
+}
+
+
+/* ==========================================
+   HOME-STYLE FOOTER - PHONE LEFT ALIGNMENT
+   Matches Home Page footer responsive exactly (same as index.css)
+   Placed at end for cascade priority; only overrides mobile.
+========================================== */
+
+@media (max-width: 768px) {
+
+    footer .footer-container,
+    footer .footer-brand,
+    footer .footer-col,
+    footer .footer-contact,
+    footer .footer-hours,
+    footer .footer-links,
+    footer .footer-bottom,
+    footer .footer-bottom p {
+
+        text-align: left;
+    }
+
+
+    footer .footer-container {
+
+        justify-items: start;
+
+        align-items: start;
+    }
+
+
+    footer .footer-brand,
+    footer .footer-col {
+
+        align-items: flex-start;
+    }
+
+
+    footer .footer-social {
+
+        justify-content: flex-start;
+    }
+
+
+    footer .footer-contact li,
+    footer .hours-row {
+
+        justify-content: flex-start;
+
+        text-align: left;
     }
 }

@@ -142,6 +142,13 @@ header {
     list-style: none;
 }
 
+/* Contact item in the nav list: hidden on desktop
+   (desktop uses the .btn-nav Contact button instead),
+   shown only inside the mobile hamburger dropdown. */
+.nav-links .nav-contact-mobile {
+    display: none;
+}
+
 .nav-links a {
     position: relative;
 
@@ -179,10 +186,6 @@ header {
 
 .nav-links a.active {
     color: var(--coffee);
-}
-
-.nav-links a.active::after {
-    width: 100%;
 }
 
 .btn-nav {
@@ -1048,131 +1051,393 @@ header {
 ========================================================= */
 
 footer {
-    background: var(--dark-blue);
+    background:
+        #162C47;
 
-    color: #fff;
+    color:
+        #fff;
 
-    padding: 65px 7% 20px;
+    padding:
+        70px 6% 30px;
 }
 
 .footer-container {
-    max-width: 1450px;
+    max-width:
+        1280px;
 
-    margin: 0 auto;
+    margin:
+        0 auto;
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
-        2fr 1fr 1fr;
+        1.6fr 1fr 1.2fr 1.2fr;
 
-    gap: 50px;
+    gap:
+        50px;
+
+    padding-bottom:
+        45px;
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.15);
 }
 
-.footer-logo img {
-    width: 95px;
+.footer-brand {
+    display:
+        flex;
 
-    display: block;
+    flex-direction:
+        column;
 
-    margin-bottom: 18px;
+    align-items:
+        flex-start;
 }
 
-.footer-logo p {
-    color: #d8d8d8;
+.footer-logo-img {
+    width:
+        130px;
 
-    font-size: 13px;
+    height:
+        auto;
 
-    line-height: 1.8;
+    display:
+        block;
+
+    margin-bottom:
+        22px;
 }
 
-.footer-links {
-    display: flex;
+.footer-desc {
+    color:
+        #d8d8d8;
 
-    flex-direction: column;
+    font-size:
+        14px;
 
-    align-items: flex-start;
+    line-height:
+        1.8;
+
+    max-width:
+        280px;
+
+    margin:
+        0;
 }
 
-.footer-links h3,
-.footer-social h3 {
+.footer-social {
+    display:
+        flex;
+
+    gap:
+        14px;
+
+    margin-top:
+        26px;
+}
+
+.footer-social a {
+    width:
+        42px;
+
+    height:
+        42px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.25);
+
+    border-radius:
+        50%;
+
+    background:
+        #23466F;
+
+    color:
+        #fff;
+
+    font-size:
+        18px;
+
+    text-decoration:
+        none;
+
+    transition:
+        0.3s;
+}
+
+.footer-social a:hover {
+    background:
+        #8B4A18;
+
+    color:
+        #fff;
+
+    border-color:
+        #8B4A18;
+
+    transform:
+        translateY(-6px);
+}
+
+.footer-col h4 {
+    color:
+        #fff;
+
     font-family:
         "Playfair Display",
         serif;
 
-    font-size: 22px;
+    font-size:
+        20px;
 
-    margin-bottom: 18px;
+    font-weight:
+        600;
+
+    margin:
+        0 0 24px;
+}
+
+.footer-links {
+    list-style:
+        none;
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        14px;
 }
 
 .footer-links a {
-    color: #d8d8d8;
+    text-decoration:
+        none;
 
-    font-size: 13px;
+    color:
+        #d8d8d8;
 
-    margin-bottom: 11px;
+    font-size:
+        15px;
 
-    transition: 0.3s;
+    transition:
+        0.3s;
 }
 
 .footer-links a:hover {
-    color: var(--gold);
+    color:
+        #D8B07A;
 
-    transform: translateX(4px);
+    padding-left:
+        6px;
 }
 
-.social-icons {
-    display: flex;
+.footer-contact {
+    list-style:
+        none;
 
-    gap: 12px;
+    margin:
+        0;
+
+    padding:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        18px;
 }
 
-.social-icons a {
-    width: 45px;
+.footer-contact li {
+    display:
+        flex;
 
-    height: 45px;
+    align-items:
+        flex-start;
 
-    display: flex;
+    gap:
+        12px;
 
-    align-items: center;
+    color:
+        #d8d8d8;
 
-    justify-content: center;
+    font-size:
+        15px;
 
-    border:
-        1px solid rgba(255, 255, 255, 0.2);
-
-    border-radius: 50%;
-
-    color: #fff;
-
-    font-size: 19px;
-
-    transition: 0.3s;
+    line-height:
+        1.6;
 }
 
-.social-icons a:hover {
-    background: var(--coffee);
+.footer-contact i {
+    color:
+        #D8B07A;
 
-    border-color: var(--coffee);
+    font-size:
+        18px;
 
-    transform: translateY(-3px);
+    margin-top:
+        2px;
+}
+
+.footer-contact a {
+    text-decoration:
+        none;
+
+    color:
+        #d8d8d8;
+
+    transition:
+        0.3s;
+}
+
+.footer-contact a:hover {
+    color:
+        #D8B07A;
+}
+
+.footer-hours {
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        20px;
+}
+
+.hours-row {
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        5px;
+}
+
+.hours-days {
+    color:
+        #fff;
+
+    font-size:
+        15px;
+
+    font-weight:
+        600;
+}
+
+.hours-time {
+    color:
+        #d8d8d8;
+
+    font-size:
+        14px;
 }
 
 .footer-bottom {
-    max-width: 1450px;
+    max-width:
+        1280px;
 
-    margin: 45px auto 0;
+    margin:
+        0 auto;
 
-    padding-top: 20px;
+    padding-top:
+        24px;
 
-    border-top:
-        1px solid rgba(255, 255, 255, 0.12);
-
-    text-align: center;
+    text-align:
+        center;
 }
 
 .footer-bottom p {
-    color: #aaa;
+    color:
+        #d8d8d8;
 
-    font-size: 11px;
+    font-size:
+        13px;
+
+    line-height:
+        1.6;
+
+    margin:
+        0;
+}
+
+@media (max-width: 992px) {
+    .footer-container {
+        grid-template-columns:
+            1fr 1fr;
+
+        gap:
+            40px;
+    }
+}
+
+@media (max-width: 850px) {
+    .footer-container {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns:
+            1fr;
+
+        text-align:
+            left;
+    }
+
+    .footer-brand {
+        align-items:
+            flex-start;
+    }
+
+    .footer-social {
+        justify-content:
+            flex-start;
+    }
+
+    .footer-contact li {
+        justify-content:
+            flex-start;
+    }
+
+    .footer-hours {
+        align-items:
+            flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-bottom {
+        font-size: 11px;
+    }
 }
 
 
@@ -1382,11 +1647,6 @@ footer {
     .hero-content h1 {
         font-size: 55px;
     }
-
-    .footer-container {
-        grid-template-columns:
-            1.5fr 1fr 1fr;
-    }
 }
 
 
@@ -1453,6 +1713,10 @@ footer {
         font-size: 14px;
     }
 
+    .nav-links .nav-contact-mobile {
+        display: block;
+    }
+
     .btn-nav {
         display: none;
     }
@@ -1490,17 +1754,6 @@ footer {
 
     .media-intro h2 {
         font-size: 40px;
-    }
-
-    .footer-container {
-        grid-template-columns:
-            1fr 1fr;
-
-        gap: 35px;
-    }
-
-    .footer-social {
-        grid-column: 1 / -1;
     }
 }
 
@@ -1724,41 +1977,6 @@ footer {
 
 
     /* =============================================
-       FOOTER
-    ============================================= */
-
-    footer {
-        padding: 50px 7% 18px;
-    }
-
-    .footer-container {
-        grid-template-columns: 1fr;
-
-        text-align: center;
-
-        gap: 30px;
-    }
-
-    .footer-logo img {
-        width: 85px;
-
-        margin: 0 auto 15px;
-    }
-
-    .footer-links {
-        align-items: center;
-    }
-
-    .footer-social {
-        grid-column: auto;
-    }
-
-    .social-icons {
-        justify-content: center;
-    }
-
-
-    /* =============================================
        LIGHTBOX
     ============================================= */
 
@@ -1891,5 +2109,45 @@ footer {
         transition-duration: 0.01ms !important;
 
         scroll-behavior: auto !important;
+    }
+}
+
+
+/* ==========================================
+   HOME-STYLE FOOTER - PHONE LEFT ALIGNMENT
+   Matches Home Page footer responsive exactly
+   Same as index.css end cascade override.
+   Placed at end for cascade priority; only overrides mobile.
+   ========================================== */
+@media (max-width: 768px) {
+    footer .footer-container,
+    footer .footer-brand,
+    footer .footer-col,
+    footer .footer-contact,
+    footer .footer-hours,
+    footer .footer-links,
+    footer .footer-bottom,
+    footer .footer-bottom p {
+        text-align: left;
+    }
+
+    footer .footer-container {
+        justify-items: start;
+        align-items: start;
+    }
+
+    footer .footer-brand,
+    footer .footer-col {
+        align-items: flex-start;
+    }
+
+    footer .footer-social {
+        justify-content: flex-start;
+    }
+
+    footer .footer-contact li,
+    footer .hours-row {
+        justify-content: flex-start;
+        text-align: left;
     }
 }

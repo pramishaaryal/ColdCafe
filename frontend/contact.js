@@ -372,3 +372,92 @@ function getErrorMessage(error) {
     );
 
 }
+
+
+// =====================================================
+// MOBILE HAMBURGER MENU
+// =====================================================
+
+const menuToggle =
+    document.getElementById("menuToggle");
+
+const navLinks =
+    document.getElementById("navLinks");
+
+if (menuToggle && navLinks) {
+
+    menuToggle.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+            const isOpen =
+                navLinks.classList.toggle("open");
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+
+            menuToggle.innerHTML =
+                isOpen
+                    ? '<i class="ri-close-line"></i>'
+                    : '<i class="ri-menu-3-line"></i>';
+
+        }
+    );
+
+    navLinks
+        .querySelectorAll("a")
+        .forEach(
+            function (link) {
+
+                link.addEventListener(
+                    "click",
+                    function () {
+
+                        navLinks.classList.remove("open");
+
+                        menuToggle.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+                        menuToggle.innerHTML =
+                            '<i class="ri-menu-3-line"></i>';
+
+                    }
+                );
+
+            }
+        );
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            const navbar =
+                document.querySelector(".navbar");
+
+            if (
+                !navbar ||
+                navbar.contains(event.target)
+            ) {
+                return;
+            }
+
+            navLinks.classList.remove("open");
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            menuToggle.innerHTML =
+                '<i class="ri-menu-3-line"></i>';
+
+        }
+    );
+
+}

@@ -44,7 +44,10 @@
             </a>
 
 
-            <ul class="nav-links">
+            <ul
+                class="nav-links"
+                id="navLinks"
+            >
 
                 <li>
                     <a href="index.html">
@@ -53,7 +56,7 @@
                 </li>
 
                 <li>
-                    <a href="about.html">
+                    <a href="about.html" class="active">
                         About
                     </a>
                 </li>
@@ -70,6 +73,12 @@
                     </a>
                 </li>
 
+                <li class="nav-contact-mobile">
+                    <a href="contact.html">
+                        Contact
+                    </a>
+                </li>
+
             </ul>
 
 
@@ -83,6 +92,19 @@
                 <i class="ri-arrow-right-line"></i>
 
             </a>
+
+
+            <button
+                type="button"
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+            >
+
+                <i class="ri-menu-3-line"></i>
+
+            </button>
 
         </nav>
 
@@ -128,7 +150,7 @@
         <div class="story-image">
 
             <img
-                src="https://i.pinimg.com/736x/b0/8b/cd/b08bcd59eda17c811e105bc96eacd631.jpg"
+                id="storyImage"
                 alt="Cold Cafe"
             >
 
@@ -137,35 +159,19 @@
 
         <div class="story-content">
 
-            <span>
-                OUR STORY
+            <span id="storyLabel">
             </span>
 
 
-            <h2>
-
-                Every Cup Tells
-                <br>
-                A Beautiful Story
-
+            <h2 id="storyHeading">
             </h2>
 
 
-            <p>
-
-                Cold Cafe was created with one simple dream —
-                to serve premium coffee, refreshing bubble tea,
-                delicious waffles, and memorable moments.
-
+            <p id="storyParagraph1">
             </p>
 
 
-            <p>
-
-                We carefully select every ingredient and prepare
-                every drink with passion, ensuring that each visit
-                becomes a special experience for our customers.
-
+            <p id="storyParagraph2">
             </p>
 
 
@@ -176,8 +182,7 @@
 
                     <i class="ri-cup-fill"></i>
 
-                    <h4>
-                        Premium Coffee
+                    <h4 id="featureTitle1">
                     </h4>
 
                 </div>
@@ -187,8 +192,7 @@
 
                     <i class="ri-restaurant-fill"></i>
 
-                    <h4>
-                        Fresh Waffles
+                    <h4 id="featureTitle2">
                     </h4>
 
                 </div>
@@ -198,8 +202,7 @@
 
                     <i class="ri-heart-fill"></i>
 
-                    <h4>
-                        Made With Love
+                    <h4 id="featureTitle3">
                     </h4>
 
                 </div>
@@ -209,8 +212,7 @@
 
                     <i class="ri-group-fill"></i>
 
-                    <h4>
-                        Friendly Service
+                    <h4 id="featureTitle4">
                     </h4>
 
                 </div>
@@ -346,8 +348,8 @@
 
         <div class="counter-box">
 
-            <h2>
-                1+
+            <h2 id="yearsExperience">
+                Loading...
             </h2>
 
             <p>
@@ -359,8 +361,8 @@
 
         <div class="counter-box">
 
-            <h2>
-                5K+
+            <h2 id="happyCustomers">
+                Loading...
             </h2>
 
             <p>
@@ -372,8 +374,8 @@
 
         <div class="counter-box">
 
-            <h2>
-                10+
+            <h2 id="signatureDrinks">
+                Loading...
             </h2>
 
             <p>
@@ -385,8 +387,8 @@
 
         <div class="counter-box">
 
-            <h2>
-                4.9★
+            <h2 id="customerRating">
+                Loading...
             </h2>
 
             <p>
@@ -467,22 +469,10 @@
         </div>
 
 
-        <div class="review-btn-wrapper">
-
-            <button
-                type="button"
-                class="review-toggle-btn"
-                id="reviewToggleBtn"
-            >
-
-                <i class="ri-quill-pen-line"></i>
-
-                Write a Review
-
-            </button>
-
-        </div>
-
+        <div
+            class="review-modal-overlay"
+            id="reviewModalOverlay"
+        ></div>
 
         <div
             class="review-form-container"
@@ -618,87 +608,64 @@
 
 
 
-        <div
-            class="testimonial-container"
-            id="testimonialContainer"
-        >
+        <div class="testimonial-slider-wrapper">
 
+            <button
+                type="button"
+                class="testimonial-arrow testimonial-arrow-prev"
+                id="reviewPrevBtn"
+                aria-label="Previous review"
+                title="Previous review"
+            >
+                <i class="ri-arrow-left-line"></i>
+            </button>
 
-            <div class="testimonial-card">
+            <div class="testimonial-slider">
 
-                <i class="ri-double-quotes-l"></i>
+                <div
+                    class="testimonial-container"
+                    id="testimonialContainer"
+                >
 
-                <p>
+                    <div class="testimonial-card">
+                        <i class="ri-loader-4-line"></i>
+                        <p>Loading reviews...</p>
+                    </div>
 
-                    One of the best cafes in town.
-                    Their cold coffee and waffles are
-                    absolutely amazing.
-
-                </p>
-
-                <h3>
-                    Sarah Williams
-                </h3>
-
-                <span>
-                    Food Blogger
-                </span>
-
-            </div>
-
-
-
-            <div class="testimonial-card">
-
-                <i class="ri-double-quotes-l"></i>
-
-                <p>
-
-                    Beautiful atmosphere, friendly staff,
-                    and premium quality drinks.
-                    Highly recommended.
-
-                </p>
-
-                <h3>
-                    Michael James
-                </h3>
-
-                <span>
-                    Regular Customer
-                </span>
+                </div>
 
             </div>
 
+            <button
+                type="button"
+                class="testimonial-arrow testimonial-arrow-next"
+                id="reviewNextBtn"
+                aria-label="Next review"
+                title="Next review"
+            >
+                <i class="ri-arrow-right-line"></i>
+            </button>
+
+        </div>
 
 
-            <div class="testimonial-card">
+        <div class="review-btn-wrapper">
 
-                <i class="ri-double-quotes-l"></i>
+            <button
+                type="button"
+                class="review-toggle-btn"
+                id="reviewToggleBtn"
+            >
 
-                <p>
+                <i class="ri-quill-pen-line"></i>
 
-                    Bubble tea, coffee, and desserts—
-                    all in one place.
-                    Definitely worth visiting.
+                Write a Review
 
-                </p>
-
-                <h3>
-                    Emily Brown
-                </h3>
-
-                <span>
-                    Traveller
-                </span>
-
-            </div>
-
+            </button>
 
         </div>
 
     </section>
-
 
 
     <!-- =====================================================
@@ -711,107 +678,167 @@
         <div class="footer-container">
 
 
-            <!-- LOGO -->
+            <!-- BRAND -->
 
-            <div class="footer-logo">
+            <div class="footer-brand">
 
-                <img
-                    src="Cold Cafe.png"
-                    alt="Cold Cafe By Giriz"
-                >
+                <a href="index.html" class="footer-logo-link">
 
+                    <img
+                        src="footer.png"
+                        alt="Cold Cafe By Giriz"
+                        class="footer-logo-img"
+                    >
 
-                <p>
+                </a>
+
+                <p class="footer-desc">
                     Fresh Coffee • Bubble Tea • Waffles
                 </p>
 
-            </div>
-
-
-
-            <!-- QUICK LINKS -->
-
-            <div class="footer-links">
-
-                <h3>
-                    Quick Links
-                </h3>
-
-
-                <a href="index.html">
-                    Home
-                </a>
-
-
-                <a href="about.html">
-                    About
-                </a>
-
-
-                <a href="menu.html">
-                    Menu
-                </a>
-
-
-                <a href="media.html">
-                    Media
-                </a>
-
-
-                <a href="contact.html">
-                    Contact
-                </a>
-
-            </div>
-
-
-
-            <!-- SOCIAL -->
-
-            <div class="footer-social">
-
-                <h3>
-                    Follow Us
-                </h3>
-
-
-                <div class="social-icons">
-
+                <div class="footer-social">
 
                     <a
                         href="#"
                         aria-label="Facebook"
                     >
-
                         <i class="ri-facebook-fill"></i>
-
                     </a>
-
 
                     <a
                         href="#"
                         aria-label="Instagram"
                     >
-
                         <i class="ri-instagram-line"></i>
-
                     </a>
-
 
                     <a
                         href="#"
                         aria-label="TikTok"
                     >
-
                         <i class="ri-tiktok-fill"></i>
-
                     </a>
-
 
                 </div>
 
             </div>
 
+            <!-- EXPLORE -->
+
+            <div class="footer-col">
+
+                <h4>
+                    Explore
+                </h4>
+
+                <ul class="footer-links">
+
+                    <li>
+                        <a href="index.html">
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="about.html">
+                            About
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="menu.html">
+                            Menu
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="media.html">
+                            Gallery
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="contact.html">
+                            Contact
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- CONTACT -->
+
+            <div class="footer-col">
+
+                <h4>
+                    Contact
+                </h4>
+
+                <ul class="footer-contact">
+
+                    <li>
+                        <i class="ri-map-pin-2-line"></i>
+                        <span>
+                            Biratnagar, Nepal
+                        </span>
+                    </li>
+
+                    <li>
+                        <i class="ri-phone-line"></i>
+                        <a href="tel:+9779806355109">
+                            +977 9806355109
+                        </a>
+                    </li>
+
+                    <li>
+                        <i class="ri-mail-line"></i>
+                        <a href="mailto:coldcafe@gmail.com">
+                            coldcafe@gmail.com
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- OPENING HOURS -->
+
+            <div class="footer-col">
+
+                <h4>
+                    Opening Hours
+                </h4>
+
+                <div class="footer-hours">
+
+                    <div class="hours-row">
+
+                        <span class="hours-days">
+                            Sunday - Friday
+                        </span>
+
+                        <span class="hours-time">
+                            9:00 AM - 10:00 PM
+                        </span>
+
+                    </div>
+
+                    <div class="hours-row">
+
+                        <span class="hours-days">
+                            Saturday
+                        </span>
+
+                        <span class="hours-time">
+                            10:00 AM - 11:00 PM
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -822,10 +849,7 @@
         <div class="footer-bottom">
 
             <p>
-
-                © 2026 Cold Cafe By Giriz |
-                All Rights Reserved.
-
+                © 2026 Cold Cafe By Giriz | All Rights Reserved.
             </p>
 
         </div>
