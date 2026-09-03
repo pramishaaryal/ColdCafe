@@ -1,0 +1,9 @@
+{
+    "name": "cold-cafe-frontend",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "postinstall": "cd frontend && yarn install && yarn build",
+        "start": "cd frontend && yarn start"
+    }
+}
