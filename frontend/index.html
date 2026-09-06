@@ -15,8 +15,10 @@
         rel="stylesheet">
 
     <!-- Remix Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+        rel="stylesheet"
+    />
 
 </head>
 
@@ -27,41 +29,72 @@
     <header>
 
         <nav class="navbar">
+
             <!-- LOGO -->
             <a href="index.html" class="logo">
-                <img src="Cold Cafe.png" alt="Cold Cafe">
+
+                <img
+                    src="Cold Cafe.png"
+                    alt="Cold Cafe"
+                >
+
             </a>
 
 
             <!-- NAV LINKS -->
-            <ul class="nav-links" id="navLinks">
+            <ul
+                class="nav-links"
+                id="navLinks"
+            >
+
                 <li>
-                    <a href="index.html" class="active">Home</a>
+                    <a
+                        href="index.html"
+                        class="active"
+                    >
+                        Home
+                    </a>
                 </li>
+
                 <li>
-                    <a href="about.html">About</a>
+                    <a href="about.html">
+                        About
+                    </a>
                 </li>
+
                 <li>
-                    <a href="menu.html">Menu</a>
+                    <a href="menu.html">
+                        Menu
+                    </a>
                 </li>
+
                 <li>
-                    <a href="media.html">Media</a>
+                    <a href="media.html">
+                        Media
+                    </a>
                 </li>
+
                 <li class="nav-contact-mobile">
-                    <a href="contact.html">Contact</a>
+                    <a href="contact.html">
+                        Contact
+                    </a>
                 </li>
 
             </ul>
 
 
-            <!-- RESERVATION -->
-            <a href="contact.html" class="btn-nav">
+            <!-- CONTACT BUTTON -->
+            <a
+                href="contact.html"
+                class="btn-nav"
+            >
 
                 Contact
 
                 <i class="ri-arrow-right-line"></i>
 
             </a>
+
 
             <!-- HAMBURGER -->
             <button
@@ -71,7 +104,9 @@
                 aria-label="Open navigation menu"
                 aria-expanded="false"
             >
+
                 <i class="ri-menu-3-line"></i>
+
             </button>
 
         </nav>
@@ -85,17 +120,13 @@
 
         <div class="hero-left">
 
-            <span>❄ PREMIUM COLD CAFE</span>
+            <span>
+                ❄ PREMIUM COLD CAFE
+            </span>
 
             <h1>
 
                 Sweet Sips & <br>
-                <!-- 
-            <br>
-
-             
-
-            <br> -->
 
                 Happy Bites
 
@@ -110,17 +141,18 @@
 
             <div class="hero-btn">
 
-
-                <a href="menu.html" class="btn1">
-
+                <a
+                    href="menu.html"
+                    class="btn1"
+                >
                     Explore Menu
-
                 </a>
 
-                <a href="contact.html" class="btn2">
-
+                <a
+                    href="contact.html"
+                    class="btn2"
+                >
                     Contact Us
-
                 </a>
 
             </div>
@@ -128,167 +160,83 @@
         </div>
 
 
-
         <div class="hero-right">
 
-            <img src="cold cafe logo.png" alt="Cold Cafe">
+            <img
+                src="cold cafe logo.png"
+                alt="Cold Cafe"
+            >
 
         </div>
 
     </section>
 
+
     <!-- =========================
-     FEATURED DRINKS
-========================== -->
+         FEATURED DRINKS / SPECIAL MENU
+    ========================== -->
 
     <section class="featured">
 
         <div class="section-title">
 
-            <span>OUR SPECIAL MENU</span>
+            <span>
+                OUR SPECIAL MENU
+            </span>
 
-            <h2>Featured Drinks</h2>
+            <h2>
+                Featured Drinks
+            </h2>
 
             <p>
+
                 Freshly crafted beverages prepared with premium coffee beans,
                 fresh milk and delicious toppings.
+
             </p>
 
         </div>
 
-        <div class="card-container">
 
-            <div class="card">
+        <!--
+            IMPORTANT:
+            Data comes from backend.
 
-                <div class="card-img">
+            API:
+            /api/home/specialmenu
+        -->
 
-                    <img src="https://i.pinimg.com/736x/55/5e/bb/555ebb52070c9043eaf2611008e76e2e.jpg"
-                        alt="Cold Coffee">
-
-                </div>
-
-                <div class="card-content">
-
-                    <h3>Classic Cold Coffee</h3>
-
-                    <p>
-
-                        Rich espresso blended with chilled milk,
-                        fresh cream and ice.
-
-                    </p>
-
-                    <div class="price">
-
-                        <h4>Rs. 250</h4>
-
-                        <a href="#">
-
-                            <i class="ri-shopping-bag-3-fill"></i>
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="card">
-
-                <div class="card-img">
-
-                    <img src="https://i.pinimg.com/736x/fd/2d/b7/fd2db79e9adb3d8146a7c8ff52a554bf.jpg" alt="Bubble Tea">
-
-                </div>
-
-                <div class="card-content">
-
-                    <h3>Bubble Milk Tea</h3>
-
-                    <p>
-
-                        Refreshing milk tea with chewy boba pearls
-                        and creamy flavour.
-
-                    </p>
-
-                    
-                    <div class="price">
-
-                        <h4>Rs. 320</h4>
-
-                        <a href="#">
-
-                            <i class="ri-shopping-bag-3-fill"></i>
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="card">
-
-                <div class="card-img">
-
-                    <img src="https://i.pinimg.com/736x/de/cb/21/decb215d1078fa6485e9e44e0f52a2de.jpg" alt="Motijo">
-
-                </div>
-
-                <div class="card-content">
-
-                    <h3>Motijo</h3>
-
-                    <p>
-
-                        A refreshing blend of tropical pineapple and smooth finish.
-
-                    </p>
-
-                    <div class="price">
-
-                        <h4>Rs. 350</h4>
-
-                        <a href="#">
-
-                            <i class="ri-shopping-bag-3-fill"></i>
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
+        <div
+            class="card-container"
+            id="specialMenuContainer"
+            aria-live="polite"
+        ></div>
 
     </section>
 
 
 
     <!-- =========================
-     WHY CHOOSE US
-========================== -->
+         WHY CHOOSE US
+    ========================== -->
 
     <section class="choose">
 
         <div class="choose-left">
 
-            <img src="https://i.pinimg.com/1200x/97/a5/47/97a547cda8e06f3899cd55427fdecb57.jpg" alt="Cafe">
+            <img
+                src="https://i.pinimg.com/1200x/97/a5/47/97a547cda8e06f3899cd55427fdecb57.jpg"
+                alt="Cafe"
+            >
 
         </div>
 
+
         <div class="choose-right">
 
-            <span>WHY CHOOSE US</span>
+            <span>
+                WHY CHOOSE US
+            </span>
 
             <h2>
 
@@ -308,37 +256,49 @@
 
             </p>
 
+
             <div class="choose-box">
 
                 <div>
 
                     <i class="ri-cup-line"></i>
 
-                    <h4>Premium Coffee</h4>
+                    <h4>
+                        Premium Coffee
+                    </h4>
 
                 </div>
+
 
                 <div>
 
                     <i class="ri-restaurant-line"></i>
 
-                    <h4>Fresh Waffles</h4>
+                    <h4>
+                        Fresh Waffles
+                    </h4>
 
                 </div>
+
 
                 <div>
 
                     <i class="ri-truck-line"></i>
 
-                    <h4>Fast Delivery</h4>
+                    <h4>
+                        Fast Delivery
+                    </h4>
 
                 </div>
+
 
                 <div>
 
                     <i class="ri-award-line"></i>
 
-                    <h4>Best Quality</h4>
+                    <h4>
+                        Best Quality
+                    </h4>
 
                 </div>
 
@@ -348,90 +308,63 @@
 
     </section>
 
+
+
     <!-- ===========================
-        BEST SELLER
-============================ -->
+         BEST SELLER
+    ============================ -->
 
     <section class="best-seller">
 
         <div class="section-title">
 
-            <span>OUR BEST SELLERS</span>
+            <span>
+                OUR BEST SELLERS
+            </span>
 
-            <h2>Customer Favorites</h2>
+            <h2>
+                Customer Favorites
+            </h2>
 
             <p>
+
                 Discover the most loved drinks and waffles at Cold Cafe.
                 Crafted with premium ingredients and served fresh every day.
+
             </p>
 
         </div>
 
-        <div class="best-container">
 
-            <div class="best-card">
+        <!--
+            IMPORTANT:
+            Data comes from backend.
 
-                <img src="https://i.pinimg.com/736x/e6/e3/bd/e6e3bd8ec20ced2cf3d2c1791e9f7835.jpg" alt="Cold Coffee">
+            API:
+            /api/home/Bestsellers
+        -->
 
-                <div class="best-content">
-
-                    <h3>Cold Coffee Deluxe</h3>
-
-                    <p>Fresh espresso with creamy milk and ice.</p>
-
-                    <span>Rs. 320</span>
-
-                </div>
-
-            </div>
-
-            <div class="best-card">
-
-                <img src="https://i.pinimg.com/736x/ba/68/5a/ba685ab6ff85e7f739d14ca0a820817a.jpg" alt="Waffle">
-
-                <div class="best-content">
-
-                    <h3>Chocolate Waffle</h3>
-
-                    <p>Golden waffle topped with rich chocolate.</p>
-
-                    <span>Rs. 420</span>
-
-                </div>
-
-            </div>
-
-            <div class="best-card">
-
-                <img src="https://i.pinimg.com/1200x/0c/b7/09/0cb7096b116b8501df876669b491fd8a.jpg" alt="Bubble Tea">
-
-                <div class="best-content">
-
-                    <h3>Brown Sugar Boba</h3>
-
-                    <p>Sweet brown sugar milk tea with boba.</p>
-
-                    <span>Rs. 350</span>
-
-                </div>
-
-            </div>
-
-        </div>
+        <div
+            class="best-container"
+            id="bestSellerContainer"
+            aria-live="polite"
+        ></div>
 
     </section>
 
 
 
     <!-- ===========================
-        SPECIAL OFFER
-============================ -->
+         SPECIAL OFFER
+    ============================ -->
 
     <section class="special-offer">
 
         <div class="offer-left">
 
-            <span>LIMITED OFFER</span>
+            <span>
+                LIMITED OFFER
+            </span>
 
             <h2>
 
@@ -450,7 +383,10 @@
 
             </p>
 
-            <a href="#" class="offer-btn">
+            <a
+                href="menu.html"
+                class="offer-btn"
+            >
 
                 Order Now
 
@@ -458,9 +394,13 @@
 
         </div>
 
+
         <div class="offer-right">
 
-            <img src="combo.png" alt="Offer">
+            <img
+                src="combo.png"
+                alt="Offer"
+            >
 
         </div>
 
@@ -469,53 +409,65 @@
 
 
     <!-- ===========================
-        GALLERY
-============================ -->
+         GALLERY
+    ============================ -->
 
     <section class="gallery">
 
         <div class="section-title">
 
-            <span>OUR GALLERY</span>
+            <span>
+                OUR GALLERY
+            </span>
 
-            <h2>Inside Cold Cafe</h2>
-
-        </div>
-
-        <div class="gallery-grid">
-
-            <img src="https://i.pinimg.com/736x/9e/fb/34/9efb34c920cc166fbe87f50e5aa77325.jpg">
-
-            <img src="https://i.pinimg.com/736x/64/fe/21/64fe21062b44028686d393017fe4eb10.jpg">
-
-            <img src="https://i.pinimg.com/736x/64/2b/51/642b511f06f6b5e9cd2839f519e30105.jpg">
-
-            <img src="https://i.pinimg.com/1200x/eb/9f/35/eb9f3539e2631d4140af212477a99277.jpg">
-
-            <img src="https://i.pinimg.com/736x/f6/62/f5/f662f58b38dd1b5daba65dd60e287053.jpg">
-
-            <img src="https://i.pinimg.com/1200x/fc/f2/85/fcf2850254664d97aa845274e548037b.jpg">
+            <h2>
+                Inside Cold Cafe
+            </h2>
 
         </div>
+
+
+        <!--
+            IMPORTANT:
+            Gallery comes from backend.
+
+            API:
+            /api/home/Gallery
+        -->
+
+        <div
+            class="gallery-grid"
+            id="homeGalleryGrid"
+            aria-live="polite"
+        ></div>
 
     </section>
 
-    <!--==========================
-        CONTACT SECTION
-===========================-->
+
+
+    <!-- ==========================
+         CONTACT SECTION
+    =========================== -->
 
     <section class="contact">
 
         <div class="contact-info">
 
-            <span>CONTACT US</span>
+            <span>
+                CONTACT US
+            </span>
 
-            <h2>Visit Our Cold Cafe</h2>
+            <h2>
+                Visit Our Cold Cafe
+            </h2>
 
             <p>
+
                 We'd love to welcome you. Enjoy premium coffee,
                 delicious waffles and refreshing drinks with your friends.
+
             </p>
+
 
             <div class="info-box">
 
@@ -525,13 +477,18 @@
 
                     <div>
 
-                        <h4>Address</h4>
+                        <h4>
+                            Address
+                        </h4>
 
-                        <p>Biratnagar, Nepal</p>
+                        <p>
+                            Biratnagar, Nepal
+                        </p>
 
                     </div>
 
                 </div>
+
 
                 <div class="info">
 
@@ -539,13 +496,18 @@
 
                     <div>
 
-                        <h4>Phone</h4>
+                        <h4>
+                            Phone
+                        </h4>
 
-                        <p>+977 9806355109</p>
+                        <p>
+                            +977 9806355109
+                        </p>
 
                     </div>
 
                 </div>
+
 
                 <div class="info">
 
@@ -553,13 +515,18 @@
 
                     <div>
 
-                        <h4>Email</h4>
+                        <h4>
+                            Email
+                        </h4>
 
-                        <p>coldcafe@gmail.com</p>
+                        <p>
+                            coldcafe@gmail.com
+                        </p>
 
                     </div>
 
                 </div>
+
 
                 <div class="info">
 
@@ -567,9 +534,13 @@
 
                     <div>
 
-                        <h4>Opening Hours</h4>
+                        <h4>
+                            Opening Hours
+                        </h4>
 
-                        <p>11:00 AM - 9:00 PM</p>
+                        <p>
+                            11:00 AM - 9:00 PM
+                        </p>
 
                     </div>
 
@@ -585,13 +556,24 @@
 
             <form>
 
-                <input type="text" placeholder="Your Name">
+                <input
+                    type="text"
+                    placeholder="Your Name"
+                >
 
-                <input type="email" placeholder="Your Email">
+                <input
+                    type="email"
+                    placeholder="Your Email"
+                >
 
-                <input type="text" placeholder="Subject">
+                <input
+                    type="text"
+                    placeholder="Subject"
+                >
 
-                <textarea placeholder="Write Your Message"></textarea>
+                <textarea
+                    placeholder="Write Your Message"
+                ></textarea>
 
                 <button type="submit">
 
@@ -608,18 +590,24 @@
     </section>
 
 
-        <!-- =====================================================
+
+    <!-- =====================================================
          FOOTER
     ====================================================== -->
+
     <footer>
 
         <div class="footer-container">
+
 
             <!-- BRAND -->
 
             <div class="footer-brand">
 
-                <a href="index.html" class="footer-logo-link">
+                <a
+                    href="index.html"
+                    class="footer-logo-link"
+                >
 
                     <img
                         src="footer.png"
@@ -629,9 +617,13 @@
 
                 </a>
 
+
                 <p class="footer-desc">
+
                     Fresh Coffee • Bubble Tea • Waffles
+
                 </p>
+
 
                 <div class="footer-social">
 
@@ -639,26 +631,36 @@
                         href="#"
                         aria-label="Facebook"
                     >
+
                         <i class="ri-facebook-fill"></i>
+
                     </a>
+
 
                     <a
                         href="#"
                         aria-label="Instagram"
                     >
+
                         <i class="ri-instagram-line"></i>
+
                     </a>
+
 
                     <a
                         href="#"
                         aria-label="TikTok"
                     >
+
                         <i class="ri-tiktok-fill"></i>
+
                     </a>
 
                 </div>
 
             </div>
+
+
 
             <!-- EXPLORE -->
 
@@ -667,6 +669,7 @@
                 <h4>
                     Explore
                 </h4>
+
 
                 <ul class="footer-links">
 
@@ -704,6 +707,8 @@
 
             </div>
 
+
+
             <!-- CONTACT -->
 
             <div class="footer-col">
@@ -712,32 +717,46 @@
                     Contact
                 </h4>
 
+
                 <ul class="footer-contact">
 
                     <li>
+
                         <i class="ri-map-pin-2-line"></i>
+
                         <span>
                             Biratnagar, Nepal
                         </span>
+
                     </li>
 
+
                     <li>
+
                         <i class="ri-phone-line"></i>
+
                         <a href="tel:+9779806355109">
                             +977 9806355109
                         </a>
+
                     </li>
 
+
                     <li>
+
                         <i class="ri-mail-line"></i>
+
                         <a href="mailto:coldcafe@gmail.com">
                             coldcafe@gmail.com
                         </a>
+
                     </li>
 
                 </ul>
 
             </div>
+
+
 
             <!-- OPENING HOURS -->
 
@@ -746,6 +765,7 @@
                 <h4>
                     Opening Hours
                 </h4>
+
 
                 <div class="footer-hours">
 
@@ -760,6 +780,7 @@
                         </span>
 
                     </div>
+
 
                     <div class="hours-row">
 
@@ -779,54 +800,135 @@
 
         </div>
 
+
+
         <div class="footer-bottom">
 
             <p>
+
                 © 2026 Cold Cafe By Giriz | All Rights Reserved.
+
             </p>
 
         </div>
 
     </footer>
 
-    <!-- HAMBURGER MENU -->
+
+
+    <!-- ===========================
+         HAMBURGER MENU
+    ============================ -->
+
     <script>
+
         (function () {
-            var navLinks = document.getElementById("navLinks");
-            var menuToggle = document.getElementById("menuToggle");
+
+            var navLinks =
+                document.getElementById("navLinks");
+
+            var menuToggle =
+                document.getElementById("menuToggle");
+
 
             if (!navLinks || !menuToggle) {
+
                 return;
+
             }
+
 
             function closeMenu() {
+
                 navLinks.classList.remove("open");
-                menuToggle.setAttribute("aria-expanded", "false");
-                menuToggle.innerHTML = '<i class="ri-menu-3-line"></i>';
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuToggle.innerHTML =
+                    '<i class="ri-menu-3-line"></i>';
+
             }
 
-            menuToggle.addEventListener("click", function (event) {
-                event.stopPropagation();
-                var isOpen = navLinks.classList.toggle("open");
-                menuToggle.setAttribute("aria-expanded", String(isOpen));
-                menuToggle.innerHTML = isOpen
-                    ? '<i class="ri-close-line"></i>'
-                    : '<i class="ri-menu-3-line"></i>';
-            });
 
-            navLinks.querySelectorAll("a").forEach(function (link) {
-                link.addEventListener("click", closeMenu);
-            });
+            menuToggle.addEventListener(
+                "click",
+                function (event) {
 
-            document.addEventListener("click", function (event) {
-                var navbar = document.querySelector(".navbar");
-                if (!navbar || navbar.contains(event.target)) {
-                    return;
+                    event.stopPropagation();
+
+                    var isOpen =
+                        navLinks.classList.toggle("open");
+
+
+                    menuToggle.setAttribute(
+                        "aria-expanded",
+                        String(isOpen)
+                    );
+
+
+                    menuToggle.innerHTML =
+                        isOpen
+
+                            ? '<i class="ri-close-line"></i>'
+
+                            : '<i class="ri-menu-3-line"></i>';
+
                 }
-                closeMenu();
-            });
+            );
+
+
+            navLinks
+                .querySelectorAll("a")
+                .forEach(function (link) {
+
+                    link.addEventListener(
+                        "click",
+                        closeMenu
+                    );
+
+                });
+
+
+            document.addEventListener(
+                "click",
+                function (event) {
+
+                    var navbar =
+                        document.querySelector(".navbar");
+
+
+                    if (
+                        !navbar ||
+                        navbar.contains(event.target)
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    closeMenu();
+
+                }
+            );
+
         })();
+
     </script>
+
+
+
+    <!-- ===========================
+         HOME BACKEND INTEGRATION
+    ============================ -->
+
+    <script
+        type="module"
+        src="home.js"
+    ></script>
 
 
 </body>
