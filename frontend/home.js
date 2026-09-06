@@ -1,36 +1,387 @@
 /* =====================================================
    COLD CAFE HOME PAGE
-   BACKEND API INTEGRATION
+   =====================================================
 
-   Connected Sections:
+   This file handles:
 
    1. Special Menu
    2. Best Sellers
    3. Home Gallery
+   4. Gallery Lightbox
+   5. Home Contact Form
+   6. Mobile Hamburger Menu
 
-   Backend:
-   https://cold-cafe-backend-1.onrender.com
-
-   Existing CSS/design is preserved.
 ===================================================== */
 
 
-document.addEventListener("DOMContentLoaded", () => {
+/* =====================================================
+   API CONFIGURATION
+===================================================== */
+
+const API_BASE_URL =
+    String(
+        import.meta.env.VITE_API_URL ||
+        "https://cold-cafe-backend-1.onrender.com"
+    ).replace(/\/+$/, "");
 
 
-    /* =====================================================
-       API BASE URL
-    ====================================================== */
-
-    const API_BASE_URL =
-        String(import.meta.env.VITE_API_URL || "")
-            .replace(/\/+$/, "");
+const HOME_API_URL =
+    `${API_BASE_URL}/api/home`;
 
 
-    if (!API_BASE_URL) {
+/* =====================================================
+   DOM ELEMENTS
+===================================================== */
 
-        console.error(
-            "VITE_API_URL is missing from .env"
+const specialMenuContainer =
+    document.getElementById(
+        "specialMenuContainer"
+    );
+
+
+const bestSellerContainer =
+    document.getElementById(
+        "bestSellerContainer"
+    );
+
+
+const galleryContainer =
+    document.getElementById(
+        "homeGalleryGrid"
+    );
+
+
+
+/* =====================================================
+   HELPER
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value) {
+
+    const element =
+        document.createElement("div");
+
+
+    element.textContent =
+        value === null ||
+        value === undefined
+            ? ""
+            : String(value);
+
+
+    return element.innerHTML;
+
+}
+
+
+
+/* =====================================================
+   IMAGE URL
+===================================================== */
+
+function getImageURL(value) {
+
+    const image =
+        String(value || "").trim();
+
+
+    if (!image) {
+
+        return "";
+
+    }
+
+
+    /* Full URL */
+
+    if (
+        image.startsWith("http://") ||
+        image.startsWith("https://")
+    ) {
+
+        return image;
+
+    }
+
+
+    /* Protocol-relative URL */
+
+    if (image.startsWith("//")) {
+
+        return (
+            window.location.protocol +
+            image
+        );
+
+    }
+
+
+    /* Absolute backend path */
+
+    if (image.startsWith("/")) {
+
+        return (
+            API_BASE_URL +
+            image
+        );
+
+    }
+
+
+    /* Relative path */
+
+    return (
+        API_BASE_URL +
+        "/" +
+        image.replace(/^\.?\//, "")
+    );
+
+}
+
+
+
+/* =====================================================
+   GET IMAGE
+===================================================== */
+
+function getImage(item) {
+
+    return getImageURL(
+
+        item?.image ||
+        item?.imageUrl ||
+        item?.imageURL ||
+        item?.url ||
+        item?.photo ||
+        ""
+
+    );
+
+}
+
+
+
+/* =====================================================
+   FORMAT PRICE
+===================================================== */
+
+function formatPrice(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+
+        return "";
+
+    }
+
+
+    const number =
+        Number(value);
+
+
+    if (!Number.isFinite(number)) {
+
+        return String(value);
+
+    }
+
+
+    return Number.isInteger(number)
+
+        ? `Rs. ${number}`
+
+        : `Rs. ${number.toFixed(2)}`;
+
+}
+
+
+
+/* =====================================================
+   GET JSON
+===================================================== */
+
+async function getJSON(url) {
+
+    const response =
+        await fetch(
+
+            url,
+
+            {
+                method: "GET",
+
+                headers: {
+                    Accept:
+                        "application/json"
+                },
+
+                cache: "no-store"
+            }
+
+        );
+
+
+    const text =
+        await response.text();
+
+
+    let data = {};
+
+
+    try {
+
+        data =
+            text
+                ? JSON.parse(text)
+                : {};
+
+    } catch (error) {
+
+        throw new Error(
+            `Invalid JSON response from ${url}`
+        );
+
+    }
+
+
+    if (!response.ok) {
+
+        throw new Error(
+
+            data?.message ||
+            `Request failed with status ${response.status}`
+
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+
+/* =====================================================
+   EXTRACT ARRAY
+===================================================== */
+
+function extractArray(
+    data,
+    keys = []
+) {
+
+    if (Array.isArray(data)) {
+
+        return data;
+
+    }
+
+
+    for (
+        const key of keys
+    ) {
+
+        if (
+            data &&
+            Array.isArray(data[key])
+        ) {
+
+            return data[key];
+
+        }
+
+    }
+
+
+    if (
+        data &&
+        data.data &&
+        Array.isArray(data.data)
+    ) {
+
+        return data.data;
+
+    }
+
+
+    if (
+        data &&
+        data.results &&
+        Array.isArray(data.results)
+    ) {
+
+        return data.results;
+
+    }
+
+
+    return [];
+
+}
+
+
+
+/* =====================================================
+   RENDER MESSAGE
+===================================================== */
+
+function renderMessage(
+    container,
+    message
+) {
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    container.innerHTML = `
+
+        <p
+            style="
+                grid-column:1/-1;
+                width:100%;
+                text-align:center;
+                padding:30px 10px;
+            "
+        >
+
+            ${escapeHTML(message)}
+
+        </p>
+
+    `;
+
+}
+
+
+
+/* =====================================================
+   SPECIAL MENU
+   GET /api/home/specialmenu
+===================================================== */
+
+function renderSpecialMenu(items) {
+
+    if (!specialMenuContainer) {
+
+        return;
+
+    }
+
+
+    if (!items.length) {
+
+        renderMessage(
+            specialMenuContainer,
+            "No special menu items available right now."
         );
 
         return;
@@ -38,939 +389,1508 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    const HOME_API_URL =
-        `${API_BASE_URL}/api/home`;
+    specialMenuContainer.innerHTML =
+
+        items.map(
+            function (item) {
+
+                const name =
+                    item?.name ||
+                    item?.title ||
+                    "Special Menu";
 
 
-    /* =====================================================
-       HTML CONTAINERS
-    ====================================================== */
-
-    const specialMenuContainer =
-        document.getElementById(
-            "specialMenuContainer"
-        );
+                const description =
+                    item?.description ||
+                    "";
 
 
-    const bestSellerContainer =
-        document.getElementById(
-            "bestSellerContainer"
-        );
+                const image =
+                    getImage(item);
 
 
-    const galleryContainer =
-        document.getElementById(
-            "homeGalleryGrid"
-        );
+                const imageHTML =
+                    image
+
+                        ? `
+
+                            <img
+                                src="${escapeHTML(image)}"
+                                alt="${escapeHTML(name)}"
+                                loading="lazy"
+                                onerror="this.style.display='none';"
+                            >
+
+                        `
+
+                        : "";
+
+
+                return `
+
+                    <div class="card">
+
+                        <div class="card-img">
+
+                            ${imageHTML}
+
+                        </div>
+
+
+                        <div class="card-content">
+
+                            <h3>
+                                ${escapeHTML(name)}
+                            </h3>
+
+
+                            <p>
+                                ${escapeHTML(description)}
+                            </p>
+
+
+                            <div class="price">
+
+                                <h4>
+                                    ${escapeHTML(
+                                        formatPrice(
+                                            item?.price
+                                        )
+                                    )}
+                                </h4>
+
+
+                                <a
+                                    href="menu.html"
+                                    aria-label="View ${escapeHTML(name)}"
+                                >
+
+                                    <i class="ri-shopping-bag-3-fill"></i>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+}
 
 
 
-    /* =====================================================
-       ESCAPE HTML
-       Prevents unsafe HTML from backend data
-    ====================================================== */
+async function loadSpecialMenu() {
 
-    function escapeHTML(value) {
+    if (!specialMenuContainer) {
 
-        const element =
-            document.createElement("div");
-
-
-        element.textContent =
-            value === null ||
-            value === undefined
-                ? ""
-                : String(value);
-
-
-        return element.innerHTML;
-
-    }
-
-
-
-    /* =====================================================
-       IMAGE URL HANDLER
-    ====================================================== */
-
-    function getImageURL(value) {
-
-        const image =
-            String(value || "").trim();
-
-
-        if (!image) {
-
-            return "";
-
-        }
-
-
-        /* Full URL */
-
-        if (
-            image.startsWith("http://") ||
-            image.startsWith("https://")
-        ) {
-
-            return image;
-
-        }
-
-
-        /* Protocol relative URL */
-
-        if (
-            image.startsWith("//")
-        ) {
-
-            return (
-                window.location.protocol +
-                image
-            );
-
-        }
-
-
-        /* Backend absolute path */
-
-        if (
-            image.startsWith("/")
-        ) {
-
-            return (
-                `${API_BASE_URL}${image}`
-            );
-
-        }
-
-
-        /* Backend relative path */
-
-        return (
-            `${API_BASE_URL}/${image.replace(
-                /^\.?\//,
-                ""
-            )}`
-        );
+        return;
 
     }
 
 
+    try {
 
-    /* =====================================================
-       GET IMAGE FROM DIFFERENT POSSIBLE FIELD NAMES
-    ====================================================== */
+        const data =
+            await getJSON(
+                `${HOME_API_URL}/specialmenu`
+            );
 
-    function getImage(item) {
 
-        return getImageURL(
+        const items =
+            extractArray(
+                data,
+                [
+                    "specialMenu",
+                    "products",
+                    "items"
+                ]
+            );
 
-            item?.image ||
 
-            item?.imageUrl ||
+        renderSpecialMenu(items);
 
-            item?.imageURL ||
+    } catch (error) {
 
-            item?.photo ||
+        console.error(
+            "Special Menu API Error:",
+            error
+        );
 
-            item?.photoUrl ||
 
-            item?.url ||
-
-            ""
-
+        renderMessage(
+            specialMenuContainer,
+            "Unable to load the special menu."
         );
 
     }
 
+}
 
 
-    /* =====================================================
-       PRICE FORMAT
-    ====================================================== */
 
-    function formatPrice(value) {
+/* =====================================================
+   BEST SELLERS
+   GET /api/home/Bestsellers
+===================================================== */
 
-        const number =
-            Number(value);
+function renderBestSellers(items) {
 
+    if (!bestSellerContainer) {
 
-        if (!Number.isFinite(number)) {
-
-            return String(
-                value ?? ""
-            );
-
-        }
-
-
-        if (
-            Number.isInteger(number)
-        ) {
-
-            return `Rs. ${number}`;
-
-        }
-
-
-        return `Rs. ${number.toFixed(2)}`;
+        return;
 
     }
 
 
+    if (!items.length) {
 
-    /* =====================================================
-       FETCH JSON
-    ====================================================== */
+        renderMessage(
+            bestSellerContainer,
+            "No best sellers available right now."
+        );
 
-    async function getJSON(url) {
-
-        const response =
-            await fetch(
-                url,
-                {
-                    method: "GET",
-
-                    headers: {
-                        Accept:
-                            "application/json"
-                    },
-
-                    cache: "no-store"
-                }
-            );
-
-
-        const text =
-            await response.text();
-
-
-        let data = {};
-
-
-        try {
-
-            data =
-                text
-                    ? JSON.parse(text)
-                    : {};
-
-        } catch (error) {
-
-            throw new Error(
-                `Invalid JSON response from ${url}`
-            );
-
-        }
-
-
-        if (!response.ok) {
-
-            throw new Error(
-
-                data?.message ||
-
-                `Request failed with status ${response.status}`
-
-            );
-
-        }
-
-
-        return data;
+        return;
 
     }
 
 
+    bestSellerContainer.innerHTML =
 
-    /* =====================================================
-       EXTRACT ARRAY
+        items.map(
+            function (item) {
 
-       Backend response can be:
+                const title =
+                    item?.title ||
+                    item?.name ||
+                    "Best Seller";
 
-       []
-       { data: [] }
-       { products: [] }
-       { items: [] }
-       etc.
-    ====================================================== */
 
-    function extractArray(
-        data,
-        keys = []
+                const description =
+                    item?.description ||
+                    "";
+
+
+                const image =
+                    getImage(item);
+
+
+                const imageHTML =
+                    image
+
+                        ? `
+
+                            <img
+                                src="${escapeHTML(image)}"
+                                alt="${escapeHTML(title)}"
+                                loading="lazy"
+                                onerror="this.style.display='none';"
+                            >
+
+                        `
+
+                        : `
+
+                            <div
+                                style="
+                                    height:370px;
+                                    background:#fff;
+                                "
+                            ></div>
+
+                        `;
+
+
+                return `
+
+                    <div class="best-card">
+
+                        ${imageHTML}
+
+
+                        <div class="best-content">
+
+                            <h3>
+                                ${escapeHTML(title)}
+                            </h3>
+
+
+                            <p>
+                                ${escapeHTML(description)}
+                            </p>
+
+
+                            <span>
+
+                                ${escapeHTML(
+                                    formatPrice(
+                                        item?.price
+                                    )
+                                )}
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+
+async function loadBestSellers() {
+
+    if (!bestSellerContainer) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const data =
+            await getJSON(
+                `${HOME_API_URL}/Bestsellers`
+            );
+
+
+        const items =
+            extractArray(
+                data,
+                [
+                    "bestSellers",
+                    "bestsellers",
+                    "items"
+                ]
+            );
+
+
+        renderBestSellers(items);
+
+    } catch (error) {
+
+        console.error(
+            "Best Sellers API Error:",
+            error
+        );
+
+
+        renderMessage(
+            bestSellerContainer,
+            "Unable to load best sellers."
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   MEDIA GALLERY
+===================================================== */
+
+
+/*
+   These variables and functions are kept
+   from the original script.js functionality.
+*/
+
+let galleryImages = [];
+
+let currentImage = 0;
+
+
+
+/* =====================================================
+   LIGHTBOX ELEMENTS
+===================================================== */
+
+const lightbox =
+    document.getElementById(
+        "lightbox"
+    );
+
+
+const lightboxImage =
+    document.getElementById(
+        "lightboxImage"
+    );
+
+
+const lightboxTitle =
+    document.getElementById(
+        "lightboxTitle"
+    );
+
+
+const closeButton =
+    document.getElementById(
+        "lightboxClose"
+    );
+
+
+const previousButton =
+    document.getElementById(
+        "lightboxPrev"
+    );
+
+
+const nextButton =
+    document.getElementById(
+        "lightboxNext"
+    );
+
+
+
+/* =====================================================
+   STORE IMAGES
+===================================================== */
+
+function storeGalleryImages() {
+
+    if (!galleryContainer) {
+
+        return;
+
+    }
+
+
+    const galleryButtons =
+        galleryContainer.querySelectorAll(
+            ".view-btn"
+        );
+
+
+    galleryImages = [];
+
+
+    galleryButtons.forEach(
+        function (button) {
+
+            galleryImages.push({
+
+                image:
+                    button.dataset.image,
+
+                title:
+                    button.dataset.title
+
+            });
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   OPEN LIGHTBOX
+===================================================== */
+
+function openLightbox(index) {
+
+    if (
+        !lightbox ||
+        !lightboxImage ||
+        !lightboxTitle ||
+        !galleryImages.length
     ) {
 
+        return;
 
-        /* Direct array */
-
-        if (
-            Array.isArray(data)
-        ) {
-
-            return data;
-
-        }
+    }
 
 
-        /* Named array */
+    currentImage =
+        index;
 
-        for (
-            const key of keys
-        ) {
 
-            if (
-                data &&
-                Array.isArray(
-                    data[key]
-                )
-            ) {
+    const image =
+        galleryImages[currentImage];
 
-                return data[key];
+
+    if (!image) {
+
+        return;
+
+    }
+
+
+    lightboxImage.src =
+        image.image;
+
+
+    lightboxImage.alt =
+        image.title;
+
+
+    lightboxTitle.textContent =
+        image.title;
+
+
+    lightbox.classList.add(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+
+/* =====================================================
+   CLOSE LIGHTBOX
+===================================================== */
+
+function closeLightbox() {
+
+    if (!lightbox) {
+
+        return;
+
+    }
+
+
+    lightbox.classList.remove(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+
+/* =====================================================
+   NEXT IMAGE
+===================================================== */
+
+function nextImage() {
+
+    if (!galleryImages.length) {
+
+        return;
+
+    }
+
+
+    currentImage++;
+
+
+    if (
+        currentImage >=
+        galleryImages.length
+    ) {
+
+        currentImage = 0;
+
+    }
+
+
+    updateLightboxImage();
+
+}
+
+
+
+/* =====================================================
+   PREVIOUS IMAGE
+===================================================== */
+
+function previousImage() {
+
+    if (!galleryImages.length) {
+
+        return;
+
+    }
+
+
+    currentImage--;
+
+
+    if (currentImage < 0) {
+
+        currentImage =
+            galleryImages.length - 1;
+
+    }
+
+
+    updateLightboxImage();
+
+}
+
+
+
+/* =====================================================
+   UPDATE LIGHTBOX
+===================================================== */
+
+function updateLightboxImage() {
+
+    if (
+        !lightboxImage ||
+        !lightboxTitle ||
+        !galleryImages.length
+    ) {
+
+        return;
+
+    }
+
+
+    const image =
+        galleryImages[currentImage];
+
+
+    if (!image) {
+
+        return;
+
+    }
+
+
+    lightboxImage.src =
+        image.image;
+
+
+    lightboxImage.alt =
+        image.title;
+
+
+    lightboxTitle.textContent =
+        image.title;
+
+}
+
+
+
+/* =====================================================
+   GALLERY BUTTON EVENTS
+===================================================== */
+
+function setupGalleryEvents() {
+
+    if (!galleryContainer) {
+
+        return;
+
+    }
+
+
+    /*
+       Event delegation is used because
+       gallery images come from backend dynamically.
+    */
+
+    galleryContainer.addEventListener(
+        "click",
+        function (event) {
+
+            const button =
+                event.target.closest(
+                    ".view-btn"
+                );
+
+
+            if (!button) {
+
+                return;
+
+            }
+
+
+            event.stopPropagation();
+
+
+            storeGalleryImages();
+
+
+            const buttons =
+                galleryContainer.querySelectorAll(
+                    ".view-btn"
+                );
+
+
+            const index =
+                Array.from(buttons)
+                    .indexOf(button);
+
+
+            if (index !== -1) {
+
+                openLightbox(index);
 
             }
 
         }
+    );
+
+}
 
 
-        /* data array */
+
+/* =====================================================
+   LIGHTBOX BUTTON EVENTS
+===================================================== */
+
+if (closeButton) {
+
+    closeButton.addEventListener(
+        "click",
+        closeLightbox
+    );
+
+}
+
+
+if (nextButton) {
+
+    nextButton.addEventListener(
+        "click",
+        nextImage
+    );
+
+}
+
+
+if (previousButton) {
+
+    previousButton.addEventListener(
+        "click",
+        previousImage
+    );
+
+}
+
+
+
+/* =====================================================
+   CLICK OUTSIDE IMAGE
+===================================================== */
+
+if (lightbox) {
+
+    lightbox.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target ===
+                lightbox
+            ) {
+
+                closeLightbox();
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   KEYBOARD CONTROL
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function (event) {
 
         if (
-            data &&
-            data.data &&
-            Array.isArray(
-                data.data
+            !lightbox ||
+            !lightbox.classList.contains(
+                "show"
             )
         ) {
 
-            return data.data;
-
-        }
-
-
-        /* results array */
-
-        if (
-            data &&
-            data.results &&
-            Array.isArray(
-                data.results
-            )
-        ) {
-
-            return data.results;
-
-        }
-
-
-        return [];
-
-    }
-
-
-
-    /* =====================================================
-       DISPLAY MESSAGE
-    ====================================================== */
-
-    function renderMessage(
-        container,
-        message
-    ) {
-
-        if (!container) {
-
-            return;
-
-        }
-
-
-        container.innerHTML =
-
-            `<p style="
-                grid-column:1/-1;
-                text-align:center;
-            ">
-                ${escapeHTML(message)}
-            </p>`;
-
-    }
-
-
-
-    /* =====================================================
-       SPECIAL MENU
-    ======================================================
-
-       Backend:
-
-       GET
-       /api/home/specialmenu
-
-    ====================================================== */
-
-    function renderSpecialMenu(
-        items
-    ) {
-
-
-        if (!specialMenuContainer) {
-
             return;
 
         }
 
 
         if (
-            !items.length
+            event.key ===
+            "Escape"
         ) {
 
-            renderMessage(
-                specialMenuContainer,
-                "No special menu items available right now."
+            closeLightbox();
+
+        }
+
+
+        if (
+            event.key ===
+            "ArrowRight"
+        ) {
+
+            nextImage();
+
+        }
+
+
+        if (
+            event.key ===
+            "ArrowLeft"
+        ) {
+
+            previousImage();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   LOAD HOME GALLERY
+   GET /api/home/Gallery
+===================================================== */
+
+function renderGallery(items) {
+
+    if (!galleryContainer) {
+
+        return;
+
+    }
+
+
+    if (!items.length) {
+
+        renderMessage(
+            galleryContainer,
+            "No gallery photos available right now."
+        );
+
+        return;
+
+    }
+
+
+    galleryContainer.innerHTML =
+
+        items.map(
+            function (item, index) {
+
+                const image =
+                    getImage(item);
+
+
+                if (!image) {
+
+                    return "";
+
+                }
+
+
+                const title =
+                    item?.title ||
+                    item?.name ||
+                    `Cold Cafe Gallery ${index + 1}`;
+
+
+                /*
+                   Image itself remains visually
+                   the same as the existing design.
+
+                   A hidden view button is added only
+                   for the original lightbox system.
+                */
+
+                return `
+
+                    <div
+                        class="home-gallery-item"
+                        style="
+                            position:relative;
+                            width:100%;
+                            height:100%;
+                        "
+                    >
+
+                        <img
+                            src="${escapeHTML(image)}"
+                            alt="${escapeHTML(title)}"
+                            loading="lazy"
+                            style="
+                                width:100%;
+                                height:100%;
+                                object-fit:cover;
+                            "
+                            onerror="this.parentElement.remove();"
+                        >
+
+
+                        <button
+                            type="button"
+                            class="view-btn"
+                            data-image="${escapeHTML(image)}"
+                            data-title="${escapeHTML(title)}"
+                            aria-label="View ${escapeHTML(title)}"
+                            style="
+                                position:absolute;
+                                inset:0;
+                                width:100%;
+                                height:100%;
+                                opacity:0;
+                                cursor:pointer;
+                                background:transparent;
+                                border:0;
+                            "
+                        >
+                        </button>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+
+    storeGalleryImages();
+
+}
+
+
+
+async function loadGallery() {
+
+    if (!galleryContainer) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const data =
+            await getJSON(
+                `${HOME_API_URL}/Gallery`
             );
 
-            return;
 
-        }
-
-
-        specialMenuContainer.innerHTML =
-
-            items
-                .map(
-                    (item) => {
-
-
-                        const name =
-
-                            item?.name ||
-
-                            item?.title ||
-
-                            "Special Menu";
+        const items =
+            extractArray(
+                data,
+                [
+                    "gallery",
+                    "items"
+                ]
+            );
 
 
-                        const description =
+        renderGallery(items);
 
-                            item?.description ||
+    } catch (error) {
 
-                            "";
-
-
-                        const image =
-                            getImage(item);
-
-
-                        const imageHTML =
-
-                            image
-
-                                ? `
-                                    <img
-                                        src="${escapeHTML(image)}"
-                                        alt="${escapeHTML(name)}"
-                                        loading="lazy"
-                                        onerror="this.style.display='none';"
-                                    >
-                                  `
-
-                                : `
-                                    <span
-                                        aria-hidden="true"
-                                    ></span>
-                                  `;
+        console.error(
+            "Gallery API Error:",
+            error
+        );
 
 
-                        return `
+        renderMessage(
+            galleryContainer,
+            "Unable to load the gallery."
+        );
 
-                            <div class="card">
+    }
 
-                                <div class="card-img">
-
-                                    ${imageHTML}
-
-                                </div>
-
-
-                                <div class="card-content">
-
-                                    <h3>
-                                        ${escapeHTML(name)}
-                                    </h3>
+}
 
 
-                                    <p>
 
-                                        ${escapeHTML(
-                                            description
-                                        )}
+/* =====================================================
+   HOME CONTACT FORM
+   POST /api/contacts
+===================================================== */
 
-                                    </p>
-
-
-                                    <div class="price">
-
-                                        <h4>
-
-                                            ${escapeHTML(
-                                                formatPrice(
-                                                    item?.price
-                                                )
-                                            )}
-
-                                        </h4>
+const homeContactForm =
+    document.getElementById(
+        "homeContactForm"
+    );
 
 
-                                        <a
-                                            href="menu.html"
-                                            aria-label="View ${escapeHTML(
-                                                name
-                                            )}"
-                                        >
+const homeContactStatus =
+    document.getElementById(
+        "homeContactStatus"
+    );
 
-                                            <i
-                                                class="ri-shopping-bag-3-fill"
-                                            ></i>
 
-                                        </a>
+const homeSubmitButton =
+    document.getElementById(
+        "homeSubmitButton"
+    );
 
-                                    </div>
 
-                                </div>
 
-                            </div>
+/* =====================================================
+   SHOW CONTACT MESSAGE
+===================================================== */
 
-                        `;
+function showHomeContactMessage(
+    message,
+    type
+) {
 
-                    }
+    if (!homeContactStatus) {
+
+        return;
+
+    }
+
+
+    homeContactStatus.textContent =
+        message;
+
+
+    homeContactStatus.style.display =
+        "block";
+
+
+    homeContactStatus.style.marginTop =
+        "12px";
+
+
+    homeContactStatus.style.textAlign =
+        "center";
+
+
+    homeContactStatus.style.fontSize =
+        "14px";
+
+
+    if (type === "success") {
+
+        homeContactStatus.style.color =
+            "green";
+
+    } else {
+
+        homeContactStatus.style.color =
+            "red";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   HIDE CONTACT MESSAGE
+===================================================== */
+
+function hideHomeContactMessage() {
+
+    if (!homeContactStatus) {
+
+        return;
+
+    }
+
+
+    homeContactStatus.textContent =
+        "";
+
+
+    homeContactStatus.style.display =
+        "none";
+
+}
+
+
+
+/* =====================================================
+   CONTACT FORM SUBMIT
+===================================================== */
+
+if (homeContactForm) {
+
+    homeContactForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            /* -----------------------------------------
+               GET VALUES
+            ----------------------------------------- */
+
+            const name =
+                document
+                    .getElementById(
+                        "homeName"
+                    )
+                    ?.value
+                    .trim();
+
+
+            const email =
+                document
+                    .getElementById(
+                        "homeEmail"
+                    )
+                    ?.value
+                    .trim();
+
+
+            const phone =
+                document
+                    .getElementById(
+                        "homePhone"
+                    )
+                    ?.value
+                    .trim();
+
+
+            const message =
+                document
+                    .getElementById(
+                        "homeMessage"
+                    )
+                    ?.value
+                    .trim();
+
+
+
+            /* -----------------------------------------
+               VALIDATION
+            ----------------------------------------- */
+
+            if (
+                !name ||
+                !email ||
+                !phone ||
+                !message
+            ) {
+
+                showHomeContactMessage(
+                    "All fields are required!",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+
+            /* -----------------------------------------
+               EMAIL VALIDATION
+            ----------------------------------------- */
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+            if (
+                !emailPattern.test(
+                    email
                 )
-                .join("");
+            ) {
 
-    }
-
-
-
-    /* =====================================================
-       LOAD SPECIAL MENU
-    ====================================================== */
-
-    async function loadSpecialMenu() {
-
-        try {
-
-
-            const data =
-
-                await getJSON(
-
-                    `${HOME_API_URL}/specialmenu`
-
+                showHomeContactMessage(
+                    "Please enter a valid email address.",
+                    "error"
                 );
 
+                return;
 
-            const items =
+            }
 
-                extractArray(
-                    data,
-                    [
-                        "specialMenu",
-                        "specialmenu",
-                        "products",
-                        "items"
-                    ]
+
+
+            /* -----------------------------------------
+               PHONE VALIDATION
+            ----------------------------------------- */
+
+            if (
+                phone.length < 7
+            ) {
+
+                showHomeContactMessage(
+                    "Please enter a valid phone number.",
+                    "error"
                 );
 
+                return;
 
-            renderSpecialMenu(
-                items
-            );
+            }
 
 
-        } catch (error) {
 
+            /* -----------------------------------------
+               HIDE OLD MESSAGE
+            ----------------------------------------- */
 
-            console.error(
-                "Special Menu API error:",
-                error
-            );
+            hideHomeContactMessage();
 
 
-            renderMessage(
 
-                specialMenuContainer,
+            /* -----------------------------------------
+               BUTTON LOADING
+            ----------------------------------------- */
 
-                "Unable to load the special menu."
+            let originalButtonHTML = "";
 
-            );
 
-        }
+            if (homeSubmitButton) {
 
-    }
+                originalButtonHTML =
+                    homeSubmitButton.innerHTML;
 
 
+                homeSubmitButton.disabled =
+                    true;
 
-    /* =====================================================
-       BEST SELLERS
-    ======================================================
 
-       Backend:
+                homeSubmitButton.innerHTML = `
 
-       GET
-       /api/home/Bestsellers
+                    <i class="ri-loader-4-line"></i>
 
-    ====================================================== */
+                    <span>
+                        Sending...
+                    </span>
 
-    function renderBestSellers(
-        items
-    ) {
+                `;
 
+            }
 
-        if (!bestSellerContainer) {
 
-            return;
 
-        }
+            /* -----------------------------------------
+               SEND TO BACKEND
+            ----------------------------------------- */
 
+            try {
 
-        if (
-            !items.length
-        ) {
+                const response =
+                    await fetch(
 
-            renderMessage(
+                        `${API_BASE_URL}/api/contacts`,
 
-                bestSellerContainer,
+                        {
 
-                "No best sellers available right now."
+                            method: "POST",
 
-            );
+                            headers: {
 
-            return;
+                                "Content-Type":
+                                    "application/json",
 
-        }
+                                "Accept":
+                                    "application/json"
 
+                            },
 
-        bestSellerContainer.innerHTML =
+                            body: JSON.stringify({
 
-            items
-                .map(
-                    (item) => {
+                                name:
+                                    name,
 
+                                email:
+                                    email,
 
-                        const title =
+                                phone:
+                                    phone,
 
-                            item?.title ||
+                                message:
+                                    message
 
-                            item?.name ||
-
-                            "Best Seller";
-
-
-                        const description =
-
-                            item?.description ||
-
-                            "";
-
-
-                        const image =
-                            getImage(item);
-
-
-                        const imageHTML =
-
-                            image
-
-                                ? `
-                                    <img
-                                        src="${escapeHTML(image)}"
-                                        alt="${escapeHTML(title)}"
-                                        loading="lazy"
-                                        onerror="this.style.display='none';"
-                                    >
-                                  `
-
-                                : `
-                                    <div
-                                        style="
-                                            height:370px;
-                                            background:#fff;
-                                        "
-                                    ></div>
-                                  `;
-
-
-                        return `
-
-                            <div class="best-card">
-
-                                ${imageHTML}
-
-
-                                <div class="best-content">
-
-                                    <h3>
-
-                                        ${escapeHTML(
-                                            title
-                                        )}
-
-                                    </h3>
-
-
-                                    <p>
-
-                                        ${escapeHTML(
-                                            description
-                                        )}
-
-                                    </p>
-
-
-                                    <span>
-
-                                        ${escapeHTML(
-                                            formatPrice(
-                                                item?.price
-                                            )
-                                        )}
-
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        `;
-
-                    }
-                )
-                .join("");
-
-    }
-
-
-
-    /* =====================================================
-       LOAD BEST SELLERS
-    ====================================================== */
-
-    async function loadBestSellers() {
-
-        try {
-
-
-            const data =
-
-                await getJSON(
-
-                    `${HOME_API_URL}/Bestsellers`
-
-                );
-
-
-            const items =
-
-                extractArray(
-
-                    data,
-
-                    [
-                        "bestSellers",
-                        "bestsellers",
-                        "bestSeller",
-                        "items"
-                    ]
-
-                );
-
-
-            renderBestSellers(
-                items
-            );
-
-
-        } catch (error) {
-
-
-            console.error(
-                "Best Sellers API error:",
-                error
-            );
-
-
-            renderMessage(
-
-                bestSellerContainer,
-
-                "Unable to load best sellers."
-
-            );
-
-        }
-
-    }
-
-
-
-    /* =====================================================
-       HOME GALLERY
-    ======================================================
-
-       Backend:
-
-       GET
-       /api/home/Gallery
-
-    ====================================================== */
-
-    function renderGallery(
-        items
-    ) {
-
-
-        if (!galleryContainer) {
-
-            return;
-
-        }
-
-
-        if (
-            !items.length
-        ) {
-
-            renderMessage(
-
-                galleryContainer,
-
-                "No gallery photos available right now."
-
-            );
-
-            return;
-
-        }
-
-
-        galleryContainer.innerHTML =
-
-            items
-
-                .map(
-                    (item, index) => {
-
-
-                        const image =
-                            getImage(item);
-
-
-                        if (!image) {
-
-                            return "";
+                            })
 
                         }
 
-
-                        return `
-
-                            <img
-                                src="${escapeHTML(image)}"
-                                alt="Cold Cafe gallery photo ${
-                                    index + 1
-                                }"
-                                loading="lazy"
-                                onerror="this.remove();"
-                            >
-
-                        `;
-
-                    }
-                )
-
-                .join("");
-
-    }
+                    );
 
 
+                /* -------------------------------------
+                   READ RESPONSE
+                ------------------------------------- */
 
-    /* =====================================================
-       LOAD GALLERY
-    ====================================================== */
-
-    async function loadGallery() {
-
-        try {
+                const text =
+                    await response.text();
 
 
-            const data =
+                let data = {};
 
-                await getJSON(
 
-                    `${HOME_API_URL}/Gallery`
+                try {
+
+                    data =
+                        text
+                            ? JSON.parse(text)
+                            : {};
+
+                } catch (error) {
+
+                    data = {};
+
+                }
+
+
+
+                /* -------------------------------------
+                   ERROR
+                ------------------------------------- */
+
+                if (!response.ok) {
+
+                    throw new Error(
+
+                        data?.message ||
+                        "Failed to send your message."
+
+                    );
+
+                }
+
+
+
+                /* -------------------------------------
+                   SUCCESS
+                ------------------------------------- */
+
+                showHomeContactMessage(
+
+                    data?.message ||
+                    "Your message has been sent successfully!",
+
+                    "success"
 
                 );
 
 
-            const items =
+                /* Clear form */
 
-                extractArray(
+                homeContactForm.reset();
 
-                    data,
 
-                    [
-                        "gallery",
-                        "galleries",
-                        "items"
-                    ]
+                /* Hide message after 5 seconds */
 
+                setTimeout(
+                    function () {
+
+                        hideHomeContactMessage();
+
+                    },
+                    5000
                 );
 
 
-            renderGallery(
-                items
-            );
+            } catch (error) {
+
+                console.error(
+                    "Home Contact Form Error:",
+                    error
+                );
 
 
-        } catch (error) {
+                let errorMessage =
+                    error?.message ||
+                    "Something went wrong. Please try again.";
 
 
-            console.error(
-                "Gallery API error:",
-                error
-            );
+                if (
+                    error instanceof TypeError &&
+                    error.message ===
+                        "Failed to fetch"
+                ) {
+
+                    errorMessage =
+                        "Unable to connect to the server. Please try again later.";
+
+                }
 
 
-            renderMessage(
+                showHomeContactMessage(
+                    errorMessage,
+                    "error"
+                );
 
-                galleryContainer,
 
-                "Unable to load the gallery."
+            } finally {
 
-            );
+                /* -------------------------------------
+                   RESTORE BUTTON
+                ------------------------------------- */
+
+                if (homeSubmitButton) {
+
+                    homeSubmitButton.disabled =
+                        false;
+
+
+                    homeSubmitButton.innerHTML =
+                        originalButtonHTML;
+
+                }
+
+            }
 
         }
+    );
 
-    }
-
-
-
-    /* =====================================================
-       LOAD ALL SECTIONS
-    ======================================================
-
-       Each section loads independently.
-
-       So if Gallery fails,
-       Special Menu and Best Sellers
-       still work.
-    ====================================================== */
-
-    loadSpecialMenu();
-
-    loadBestSellers();
-
-    loadGallery();
+}
 
 
-});
+
+/* =====================================================
+   MOBILE HAMBURGER MENU
+===================================================== */
+
+const menuToggle =
+    document.getElementById(
+        "menuToggle"
+    );
+
+
+const navLinks =
+    document.getElementById(
+        "navLinks"
+    );
+
+
+if (
+    menuToggle &&
+    navLinks
+) {
+
+    menuToggle.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+
+            const isOpen =
+                navLinks.classList.toggle(
+                    "open"
+                );
+
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+
+
+            menuToggle.innerHTML =
+                isOpen
+
+                    ? '<i class="ri-close-line"></i>'
+
+                    : '<i class="ri-menu-3-line"></i>';
+
+        }
+    );
+
+
+
+    navLinks
+        .querySelectorAll("a")
+        .forEach(
+            function (link) {
+
+                link.addEventListener(
+                    "click",
+                    function () {
+
+                        navLinks.classList.remove(
+                            "open"
+                        );
+
+
+                        menuToggle.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+
+                        menuToggle.innerHTML =
+                            '<i class="ri-menu-3-line"></i>';
+
+                    }
+                );
+
+            }
+        );
+
+
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            const navbar =
+                document.querySelector(
+                    ".navbar"
+                );
+
+
+            if (
+                !navbar ||
+                navbar.contains(
+                    event.target
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            navLinks.classList.remove(
+                "open"
+            );
+
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+
+            menuToggle.innerHTML =
+                '<i class="ri-menu-3-line"></i>';
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   LOAD HOME DATA
+===================================================== */
+
+loadSpecialMenu();
+
+loadBestSellers();
+
+loadGallery();

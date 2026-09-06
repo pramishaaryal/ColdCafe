@@ -18,7 +18,7 @@
     <link
         href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
         rel="stylesheet"
-    />
+    >
 
 </head>
 
@@ -31,6 +31,7 @@
         <nav class="navbar">
 
             <!-- LOGO -->
+
             <a href="index.html" class="logo">
 
                 <img
@@ -42,48 +43,64 @@
 
 
             <!-- NAV LINKS -->
+
             <ul
                 class="nav-links"
                 id="navLinks"
             >
 
                 <li>
+
                     <a
                         href="index.html"
                         class="active"
                     >
                         Home
                     </a>
+
                 </li>
 
+
                 <li>
+
                     <a href="about.html">
                         About
                     </a>
+
                 </li>
 
+
                 <li>
+
                     <a href="menu.html">
                         Menu
                     </a>
+
                 </li>
 
+
                 <li>
+
                     <a href="media.html">
                         Media
                     </a>
+
                 </li>
 
+
                 <li class="nav-contact-mobile">
+
                     <a href="contact.html">
                         Contact
                     </a>
+
                 </li>
 
             </ul>
 
 
             <!-- CONTACT BUTTON -->
+
             <a
                 href="contact.html"
                 class="btn-nav"
@@ -97,6 +114,7 @@
 
 
             <!-- HAMBURGER -->
+
             <button
                 type="button"
                 class="menu-toggle"
@@ -114,6 +132,7 @@
     </header>
 
 
+
     <!-- ================= HERO ================= -->
 
     <section class="hero">
@@ -124,6 +143,7 @@
                 ❄ PREMIUM COLD CAFE
             </span>
 
+
             <h1>
 
                 Sweet Sips & <br>
@@ -132,12 +152,14 @@
 
             </h1>
 
+
             <p>
 
                 Fresh sips, sweet bites & happy moments.
                 Bubble tea, waffles & cold drinks — made with love.
 
             </p>
+
 
             <div class="hero-btn">
 
@@ -147,6 +169,7 @@
                 >
                     Explore Menu
                 </a>
+
 
                 <a
                     href="contact.html"
@@ -158,6 +181,7 @@
             </div>
 
         </div>
+
 
 
         <div class="hero-right">
@@ -172,8 +196,9 @@
     </section>
 
 
+
     <!-- =========================
-         FEATURED DRINKS / SPECIAL MENU
+         FEATURED DRINKS
     ========================== -->
 
     <section class="featured">
@@ -184,9 +209,11 @@
                 OUR SPECIAL MENU
             </span>
 
+
             <h2>
                 Featured Drinks
             </h2>
+
 
             <p>
 
@@ -198,13 +225,7 @@
         </div>
 
 
-        <!--
-            IMPORTANT:
-            Data comes from backend.
-
-            API:
-            /api/home/specialmenu
-        -->
+        <!-- BACKEND SPECIAL MENU -->
 
         <div
             class="card-container"
@@ -238,6 +259,7 @@
                 WHY CHOOSE US
             </span>
 
+
             <h2>
 
                 Fresh Coffee,
@@ -247,6 +269,7 @@
                 Every Day
 
             </h2>
+
 
             <p>
 
@@ -322,9 +345,11 @@
                 OUR BEST SELLERS
             </span>
 
+
             <h2>
                 Customer Favorites
             </h2>
+
 
             <p>
 
@@ -336,13 +361,7 @@
         </div>
 
 
-        <!--
-            IMPORTANT:
-            Data comes from backend.
-
-            API:
-            /api/home/Bestsellers
-        -->
+        <!-- BACKEND BEST SELLERS -->
 
         <div
             class="best-container"
@@ -366,6 +385,7 @@
                 LIMITED OFFER
             </span>
 
+
             <h2>
 
                 Buy 2 Drinks
@@ -376,6 +396,7 @@
 
             </h2>
 
+
             <p>
 
                 Visit Cold Cafe today and enjoy our exclusive
@@ -383,13 +404,12 @@
 
             </p>
 
+
             <a
                 href="menu.html"
                 class="offer-btn"
             >
-
                 Order Now
-
             </a>
 
         </div>
@@ -420,6 +440,7 @@
                 OUR GALLERY
             </span>
 
+
             <h2>
                 Inside Cold Cafe
             </h2>
@@ -427,13 +448,7 @@
         </div>
 
 
-        <!--
-            IMPORTANT:
-            Gallery comes from backend.
-
-            API:
-            /api/home/Gallery
-        -->
+        <!-- BACKEND GALLERY -->
 
         <div
             class="gallery-grid"
@@ -445,9 +460,9 @@
 
 
 
-    <!-- ==========================
+    <!-- ===========================
          CONTACT SECTION
-    =========================== -->
+    ============================ -->
 
     <section class="contact">
 
@@ -457,9 +472,11 @@
                 CONTACT US
             </span>
 
+
             <h2>
                 Visit Our Cold Cafe
             </h2>
+
 
             <p>
 
@@ -470,6 +487,9 @@
 
 
             <div class="info-box">
+
+
+                <!-- ADDRESS -->
 
                 <div class="info">
 
@@ -490,6 +510,9 @@
                 </div>
 
 
+
+                <!-- PHONE -->
+
                 <div class="info">
 
                     <i class="ri-phone-fill"></i>
@@ -509,6 +532,9 @@
                 </div>
 
 
+
+                <!-- EMAIL -->
+
                 <div class="info">
 
                     <i class="ri-mail-fill"></i>
@@ -527,6 +553,9 @@
 
                 </div>
 
+
+
+                <!-- OPENING HOURS -->
 
                 <div class="info">
 
@@ -552,36 +581,87 @@
 
 
 
+        <!-- =========================
+             HOME CONTACT FORM
+        ========================== -->
+
         <div class="contact-form">
 
-            <form>
+            <form
+                id="homeContactForm"
+                novalidate
+            >
+
+
+                <!-- NAME -->
 
                 <input
                     type="text"
+                    id="homeName"
+                    name="name"
                     placeholder="Your Name"
+                    autocomplete="name"
+                    required
                 >
+
+
+                <!-- EMAIL -->
 
                 <input
                     type="email"
+                    id="homeEmail"
+                    name="email"
                     placeholder="Your Email"
+                    autocomplete="email"
+                    required
                 >
+
+
+                <!-- PHONE -->
 
                 <input
-                    type="text"
-                    placeholder="Subject"
+                    type="tel"
+                    id="homePhone"
+                    name="phone"
+                    placeholder="Your Phone Number"
+                    autocomplete="tel"
+                    required
                 >
 
+
+                <!-- MESSAGE -->
+
                 <textarea
+                    id="homeMessage"
+                    name="message"
                     placeholder="Write Your Message"
+                    required
                 ></textarea>
 
-                <button type="submit">
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    id="homeSubmitButton"
+                >
 
                     <i class="ri-send-plane-fill"></i>
 
-                    Send Message
+                    <span>
+                        Send Message
+                    </span>
 
                 </button>
+
+
+                <!-- STATUS -->
+
+                <p
+                    id="homeContactStatus"
+                    aria-live="polite"
+                ></p>
+
 
             </form>
 
@@ -619,9 +699,7 @@
 
 
                 <p class="footer-desc">
-
                     Fresh Coffee • Bubble Tea • Waffles
-
                 </p>
 
 
@@ -674,33 +752,47 @@
                 <ul class="footer-links">
 
                     <li>
+
                         <a href="index.html">
                             Home
                         </a>
+
                     </li>
 
+
                     <li>
+
                         <a href="about.html">
                             About
                         </a>
+
                     </li>
 
+
                     <li>
+
                         <a href="menu.html">
                             Menu
                         </a>
+
                     </li>
 
+
                     <li>
+
                         <a href="media.html">
                             Gallery
                         </a>
+
                     </li>
 
+
                     <li>
+
                         <a href="contact.html">
                             Contact
                         </a>
+
                     </li>
 
                 </ul>
@@ -805,9 +897,7 @@
         <div class="footer-bottom">
 
             <p>
-
                 © 2026 Cold Cafe By Giriz | All Rights Reserved.
-
             </p>
 
         </div>
@@ -816,114 +906,9 @@
 
 
 
-    <!-- ===========================
-         HAMBURGER MENU
-    ============================ -->
-
-    <script>
-
-        (function () {
-
-            var navLinks =
-                document.getElementById("navLinks");
-
-            var menuToggle =
-                document.getElementById("menuToggle");
-
-
-            if (!navLinks || !menuToggle) {
-
-                return;
-
-            }
-
-
-            function closeMenu() {
-
-                navLinks.classList.remove("open");
-
-                menuToggle.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-                menuToggle.innerHTML =
-                    '<i class="ri-menu-3-line"></i>';
-
-            }
-
-
-            menuToggle.addEventListener(
-                "click",
-                function (event) {
-
-                    event.stopPropagation();
-
-                    var isOpen =
-                        navLinks.classList.toggle("open");
-
-
-                    menuToggle.setAttribute(
-                        "aria-expanded",
-                        String(isOpen)
-                    );
-
-
-                    menuToggle.innerHTML =
-                        isOpen
-
-                            ? '<i class="ri-close-line"></i>'
-
-                            : '<i class="ri-menu-3-line"></i>';
-
-                }
-            );
-
-
-            navLinks
-                .querySelectorAll("a")
-                .forEach(function (link) {
-
-                    link.addEventListener(
-                        "click",
-                        closeMenu
-                    );
-
-                });
-
-
-            document.addEventListener(
-                "click",
-                function (event) {
-
-                    var navbar =
-                        document.querySelector(".navbar");
-
-
-                    if (
-                        !navbar ||
-                        navbar.contains(event.target)
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    closeMenu();
-
-                }
-            );
-
-        })();
-
-    </script>
-
-
-
-    <!-- ===========================
-         HOME BACKEND INTEGRATION
-    ============================ -->
+    <!-- =========================
+         HOME JAVASCRIPT
+    ========================== -->
 
     <script
         type="module"
